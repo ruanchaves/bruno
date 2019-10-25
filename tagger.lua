@@ -16,7 +16,7 @@ function tag_match(line)
         [10]="%w+%(.+%)",
         [11]="if %w+ %p %w+ then",
         [12]="else",
-        [13]="fi"
+        [13]="fi",
     }
 
     labels = {
@@ -32,7 +32,7 @@ function tag_match(line)
         [10]="funcall_2",
         [11]="if_then",
         [12]="else",
-        [13]="fi"
+        [13]="fi",
     }
 
     for key, value in ipairs(patterns) do
