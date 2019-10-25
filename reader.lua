@@ -5,10 +5,10 @@
 -------------------------------------
 function func_reader(file, verbose)
     verbose = verbose or false
-    function_block = {} -- lista de funções.
-    function_dict = {} -- tabela auxiliar temporária.
+    function_block = {} -- tabela auxiliar temporária.
+    function_list = {} -- lista de funções.
     function_name_to_index = {} -- dicionário de nomes de funções : índice da função na tabela function_block.
-    f_dict_counter = 1
+    f_list_counter = 1
     f_block_counter = 1
 
     for line in file:lines() do
@@ -20,8 +20,8 @@ function func_reader(file, verbose)
         elseif string.find(line,"^end") then
             function_block[f_block_counter] = line
             f_block_counter = f_block_counter + 1
-            function_dict[f_dict_counter] = table.clone(function_block)
-            f_dict_counter = f_dict_counter + 1
+            function_list[f_list_counter] = table.clone(function_block)
+            f_list_counter = f_list_counter + 1
             if (verbose == true) then
                 print("======")
                 print_table(function_block)
@@ -34,7 +34,7 @@ function func_reader(file, verbose)
         end
     end
 
-    for key, current_table in ipairs(function_dict) do
+    for key, current_table in ipairs(function_list) do
         function_header = current_table[1]
         tmp = string_split(function_header)
         function_name_to_index[tmp[2]] = key
@@ -42,10 +42,10 @@ function func_reader(file, verbose)
 
     if (verbose == true) then
         print("======")
-        print_table(function_dict)
+        print_table(function_list)
         print("======")
         print_table_unordered(function_name_to_index)
         print("======")
     end
-    return function_dict, function_name_to_index
+    return function_list, function_name_to_index
 end
