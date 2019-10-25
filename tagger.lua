@@ -9,12 +9,12 @@ function tag_match(line)
         [3]="var .+",
         [4]="var %[.+",
         [5]="^begin ",
-        [6]="^end ",
+        [6]="^end",
         [7]="%w+ %= %w+",
         [8]="%w+ %= %w+ %p %w+",
         [9]="%w+%(%)",
         [10]="%w+%(.+%)",
-        [11]="if %w+ %p %w+ then"
+        [11]="if %w+ %p %w+ then",
         [12]="else",
         [13]="fi"
     }
@@ -52,7 +52,6 @@ function tag_match(line)
             chosen_label = labels[key]
         end
     end
-
     return chosen_label
 end
 
