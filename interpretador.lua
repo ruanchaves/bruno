@@ -1,6 +1,7 @@
 require 'utils'
 require 'reader'
 require 'tagger'
+require 'runner'
 
 --
 -- Pega o nome do arquivo passado como parâmetro (se houver)
@@ -28,3 +29,10 @@ file:close()
 -- Categoriza cada linha de cada função
 --
 function_list_tags = line_tagger(function_list, verbose)
+
+--
+-- Executa cada função
+--
+main_index = find_function_index(function_name_to_index, 'main%(')
+run = Runner:create(function_list, function_list_tags)
+run:execute(function_list[main_index], function_list_tags[main_index])

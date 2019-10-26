@@ -26,3 +26,13 @@ function string_split(line)
     end
   return t
 end
+
+function find_function_index(function_name_to_index, regex)
+  for key, value in pairs(function_name_to_index) do
+    if string.find(key, regex) then
+        main_index = value
+        break
+    end
+  end
+  return main_index
+end

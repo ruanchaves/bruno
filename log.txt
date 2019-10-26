@@ -1,0 +1,53 @@
+commit e16724da06cc1140873a3064c21780af90e1b0a5
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Fri Oct 25 17:18:27 2019 -0300
+
+    Fiz o esboço inicial da call stack, e fiz a arquitetura do leitor de funçoes (reader.lua) e do categorizador de linhas (tagger.lua).
+
+commit 1978f8a14162d8efa0ca02c16790da29f3794a26
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Fri Oct 25 16:55:54 2019 -0300
+
+    tagger -updated
+
+commit fd277433766c116e0f79aaa49fc2242cacea9702
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Fri Oct 25 16:26:55 2019 -0300
+
+    tagger - incompleto
+
+commit e66e462d24d4696a51891ad22252e21e3b3933fe
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Fri Oct 25 15:52:31 2019 -0300
+
+    tagger - incompleto
+
+commit add02ce52f735c5c389e23aac72caaa46d4513fd
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Fri Oct 25 05:41:24 2019 -0300
+
+    leitor de funçoes - correcoes
+
+commit b4d88664062520d1dde0c21b7404d5efa51d379b
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Fri Oct 25 05:38:23 2019 -0300
+
+    adicionado leitor de funçoes
+
+commit d853a1ae536f53bddf91e7677eef4437628abdae
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Thu Oct 24 07:02:46 2019 -0300
+
+    token
+
+commit 1cd528a2b90078b3c6f86bc69e8df5254548c3e3
+Author: ruanchaves <ruanchaves@gmail.com>
+Date:   Thu Oct 24 06:37:26 2019 -0300
+
+    Criaçao da call stack
+
+commit 2e320637080a3bc578d5356ca276794192a3d6cd
+Author: Ruan Chaves <ruanchaves93@gmail.com>
+Date:   Wed Oct 9 22:12:40 2019 -0300
+
+    Initial commit
