@@ -32,39 +32,33 @@ function Runner:execute(cmds, cmd_tags)
     for key, value in ipairs(cmds) do
         command = value
         command_tag = cmd_tags[key]
-        if commandtag == "header_1" then
-            self:header_1(command, command_tag)
-        elseif command_tag == "header_2" then
-            self:header_2(command, command_tag)
-        elseif command_tag == "var_1" then
-            self:var_1(command, command_tag)
-        elseif command_tag == "var_2" then
-            self:var_2(command, command_tag)
+        if commandtag == "header" then
+            self:header(command, command_tag)
+        elseif command_tag == "vardef" then
+            self:vardef(command, command_tag)
         elseif command_tag == "begin" then
             self:begin(command, command_tag)
         elseif command_tag == "end" then
             self:end_(command, command_tag)
-        elseif command_tag == "attr_1" then
-            self:attr_1(command, command_tag)
-        elseif command_tag == "attr_2" then
-            self:attr_2(command, command_tag)
-        elseif command_tag == "funcall_1" then
-            self:funcall_1(command, command_tag)
-        elseif command_tag == "funcall_2" then
-            self:funcall_2(command, command_tag)
+        elseif command_tag == "attr" then
+            self:attr(command, command_tag)
+        elseif command_tag == "funcall" then
+            self:funcall(command, command_tag)
         elseif command_tag == "if_then" then
-            self:if_then(command, command_tag)
+            self:if_(command, command_tag)
         elseif command_tag == "else" then
             self:else_(command, command_tag)
         elseif command_tag == "fi" then
             self:fi(command, command_tag)
-	    else
+	    else --error
 	    end
     end
 end
 
 
-function Runner:header_1(command, command_tag)
+function Runner:header(command, command_tag)
+    param1, param2, param3 = get_param(command)
+    
     if name_from_function_header(command) == 'main' then
         self.callstack:push()
         self.callstack:assign('__call__', command)
@@ -72,23 +66,23 @@ function Runner:header_1(command, command_tag)
 end
 
 
-function Runner:header_2(command, command_tag)
+function Runner:vardef(command, command_tag)
+    varname = get_varname(command)
+    varsize = get_varsize(command)
+
+    --checar se varsize=0 erro
 end
-
-
-function Runner:var_1(command, command_tag)
-end
-
-
-function Runner:var_2(command, command_tag)
-end
-
 
 function Runner:begin(command, command_tag)
+    begin = string.match(command,"begin%s*")
+    -- if begin ~= command then error
 end
 
 
 function Runner:end_(command, command_tag)
+    _end = string.match(command,"end%s*")
+    -- if begin ~= command then error
+
     previous_context = self.callstack:pop()
     call = previous_context['__call__']
     ret = previous_context['ret']
@@ -96,15 +90,14 @@ function Runner:end_(command, command_tag)
 end
 
 
-function Runner:attr_1(command, command_tag)
+function Runner:attr(command, command_tag)
+    varname,varvalue,arg1value,arg1number
+    op,arg2,arg2number = get_attrvalues(command)
+
 end
 
 
-function Runner:attr_2(command, command_tag)
-end
-
-
-function Runner:funcall_1(command, command_tag)
+function Runner:funcall(command, command_tag)
     name = name_from_function_call(command)
     index = self:find_function_index(name)
     function_commands = self.function_list[index]
@@ -115,11 +108,7 @@ function Runner:funcall_1(command, command_tag)
 end
 
 
-function Runner:funcall_2(command, command_tag)
-end
-
-
-function Runner:if_then(command, command_tag)
+function Runner:if_(command, command_tag)
 end
 
 

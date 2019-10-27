@@ -1,58 +1,37 @@
 require 'utils'
 
+outer_tags{
+    [1]="^function",
+    [2]="^var",
+    [3]="^begin",
+    [4]="^end",
+    [5]="=",
+    [6]="%(",
+    [7]="^if",
+    [8]="^else",
+    [9]="fi%s*$",
+}
+
+labels = {
+    [1]="header",
+    [3]="vardef",
+    [5]="begin",
+    [6]="end",
+    [7]="attr",
+    [9]="funcall",
+    [11]="if",
+    [12]="else",
+    [13]="fi",
+}
+
+
 function tag_match(line)
-    scores = {}
-
-    patterns = {
-        [1]="function .+%(%)",
-        [2]="function .+%(.+%)",
-        [3]="var .+",
-        [4]="var %[.+",
-        [5]="^begin ",
-        [6]="^end",
-        [7]="%w+ %= %w+",
-        [8]="%w+ %= %w+ %p %w+",
-        [9]="%w+%(%)",
-        [10]="%w+%(.+%)",
-        [11]="if %w+ %p %w+ then",
-        [12]="else",
-        [13]="fi",
-    }
-
-    labels = {
-        [1]="header_1",
-        [2]="header_2",
-        [3]="var_1",
-        [4]="var_2",
-        [5]="begin",
-        [6]="end",
-        [7]="attr_1",
-        [8]="attr_2",
-        [9]="funcall_1",
-        [10]="funcall_2",
-        [11]="if_then",
-        [12]="else",
-        [13]="fi",
-    }
-
-    for key, value in ipairs(patterns) do
-        scores[key] = 0
-    end
-
-    for key, value in ipairs(patterns) do
+    for key, value in ipairs(outer_tags) do
         if string.find(line, value) then
-            scores[key] = scores[key] + 1
+            return labels[key]
         end
+        --else error
     end
-
-    chosen_label = nil
-    tmp_score = 0
-    for key, value in ipairs(scores) do
-        if value > tmp_score then
-            chosen_label = labels[key]
-        end
-    end
-    return chosen_label
 end
 
 function line_tagger(function_list, verbose)
