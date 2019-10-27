@@ -7,7 +7,6 @@ function func_reader(file, verbose)
     verbose = verbose or false
     function_block = {} -- tabela auxiliar temporária.
     function_list = {} -- lista de funções.
-    function_name_to_index = {} -- dicionário de nomes de funções : índice da função na tabela function_block.
     f_list_counter = 1
     f_block_counter = 1
 
@@ -34,18 +33,10 @@ function func_reader(file, verbose)
         end
     end
 
-    for key, current_table in ipairs(function_list) do
-        function_header = current_table[1]
-        tmp = string_split(function_header)
-        function_name_to_index[tmp[2]] = key
-    end
-
     if (verbose == true) then
         print("======")
         print_table(function_list)
         print("======")
-        print_table_unordered(function_name_to_index)
-        print("======")
     end
-    return function_list, function_name_to_index
+    return function_list
 end
