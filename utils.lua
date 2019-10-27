@@ -36,3 +36,35 @@ function find_function_index(function_name_to_index, regex)
   end
   return main_index
 end
+
+function find_type(value)
+  if string.find(value, '%d+') then
+      return 'number'
+  elseif string.find(value, '%(') then
+      return 'function'
+  elseif string.find(value, '%l+') then
+      return 'name'
+  else
+      return nil
+  end
+end
+
+function find_function_args(expr)
+  tmp_table = {}
+  for i in string.gmatch(expr, "%w+") do
+    table.insert(tmp_table, i)
+  end
+  return tmp_table
+end
+
+function name_from_function_header(header)
+  names, args = header:match("(.+)%((.+)")
+  key = string_split(names)[2]
+  return key
+end  
+
+function name_from_function_call(header)
+  names, args = header:match("(.+)%((.+)")
+  key = string_split(names)[1]
+  return key
+end  
