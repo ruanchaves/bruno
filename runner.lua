@@ -14,6 +14,7 @@ function Runner:create(function_list, function_list_tags)
         header = v[1]
         key = name_from_function_header(header)
         runner_object.function_index[key] = i
+    end
     runner_object.function_list_tags = function_list_tags
     runner_object.if_status = true
     return runner_object
