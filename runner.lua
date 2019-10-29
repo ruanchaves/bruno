@@ -53,6 +53,8 @@ function Runner:execute(cmds, cmd_tags)
             self:else_(command, command_tag)
         elseif command_tag == "fi" then
             self:fi(command, command_tag)
+        elseif command_tag == "print" then
+            self:print(command, command_tag)
         else
             print("Deu ruim")
         end
@@ -61,10 +63,6 @@ end
 
 
 function Runner:header(command, command_tag)
-    local param1, param2, param3 = get_param(command)
-    
-    print("Entrou em " .. name_from_function_header(command))
-
     if name_from_function_header(command) == 'main' then
         self.callstack:push()
         self.callstack:assign('__call__', command)
@@ -147,8 +145,16 @@ end
 
 
 function Runner:funcall(command, command_tag)
+    local param1,param2, param3 = get_param(command)
+    --ir para o header e pegar o nome dos parametros
+    --e get_arg(parm1)...
+    --pegar o parâmetro e jogar (nome,parametro) pilha
+    --nova pilha
+    --voltar
+
     local name = name_from_function_call(command)
     local index = self:find_function_index(name)
+    print (self.function_list[index])
     local function_commands = self.function_list[index]
     local function_tags = self.function_list_tags[index]
     self.callstack:push()
@@ -168,3 +174,9 @@ end
 function Runner:fi(command, command_tag)
 end
 
+function Runner:print(command, command_tag)
+    arg = string.match(command,"print%((.+)%)")
+    print("Ta em imprimir")
+    num = get_argvalues(arg,self)
+    print(num)
+end
