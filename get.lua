@@ -12,24 +12,30 @@ reserved = {
 }
 
 function get_param(command)
-    local zero = string.match(command,"(function%s+%l+%(%)%s*)")
-    if zero == command then
+    local param1,param2,param3 = nil
+
+    find = string.find(command,"%(%)")
+    if find ~= nil then
         return nil
     end
 
-    local one,param1 = string.match(command,"(function%s+%l+%((%l+)%)%s*)")
-    if one == command then
-        return param1
+    -- ordem invesa é importante 
+    -- senão ele considera a virgula
+    -- como sendo parte do ponto
+
+    param1,param2,param3 = string.match(command,"%((.+),(.+),(.+)%)")
+    if param3 ~= nil then
+        return param1,param2,param3    
     end
 
-    local two,param1,param2 = string.match(command,"(function%s%l+%((%l+),(%l+)%)%s)")
-    if two == command then
+    param1,param2 = string.match(command,"%((.+),(.+)%)")
+    if param2 ~= nil then
         return param1,param2
     end
 
-    local three,param1,param2,param3 = string.match(command,"(function%s+%l+%((%l+),(%l+),(%l+)%)%s*)")
-    if three == command then
-        return param1,param2,param3    
+    local param1 = string.match(command,"%((.+)%)")
+    if param1 ~= nil then
+        return param1
     end
 end
 

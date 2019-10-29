@@ -9,10 +9,12 @@ outer_tags = {
     [3]="begin",
     [4]="end",
     [5]="=",
-    [6]="%(",
-    [7]="if",
-    [8]="else",
-    [9]="fi",
+    [6]="print",
+    -- nao mudar a ordem print antes de funcall
+    [7]="%(",
+    [8]="if",
+    [9]="else",
+    [10]="fi",
 }
 
 labels = {
@@ -21,10 +23,11 @@ labels = {
     [3]="begin",
     [4]="end",
     [5]="attr",
-    [6]="funcall",
-    [7]="if",
-    [8]="else",
-    [9]="fi",
+    [6]="print",
+    [7]="funcall",
+    [8]="if",
+    [9]="else",
+    [10]="fi",
 }
 
 function tag_match(line)
