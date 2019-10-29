@@ -1,11 +1,12 @@
 require 'utils'
 require 'callstack'
+require 'get'
 
 Runner = {}
 Runner.__index = Runner
 
 function Runner:create(function_list, function_list_tags)
-    local runner_object = {}
+    runner_object = {}
     setmetatable(runner_object, Runner)
     runner_object.function_list = function_list
     runner_object.function_index = {}
@@ -78,24 +79,24 @@ function Runner:vardef(command, command_tag)
     --if varsize ~= nil then
     --    test = test .. "[" .. varsize .. "]"
     --end
+    print(varsize)
 
     if varsize ~= nil then
         if varsize == 0 then
             print("chave não pode ser 0")
             os.exit()
         end
-
         self.callstack:assign(varname.."_size_", varsize)
         for i = 1, tonumber(varsize) do
             self.callstack:assign(varname.."["..tostring(i).."]", varsize)
         end
     else 
         self.callstack:assign(varname, '0')
+        print("Esse caso")
         --print("Armazenou na pilha")
         --print(self.callstack:find(varname))
     end
-
-    print(test)
+    --print(test)
 end
 
 function Runner:begin(command, command_tag)
@@ -117,24 +118,31 @@ end
 
 function Runner:attr(command, command_tag)
     local var,arg1,op,arg2 = get_attrvalues(command)
-
-    local num1 = get_argvalues(arg1)
-    if op ~= nil then:
-        local num2 = get_argvalues(arg2)
-        local result = get_result(num1,op,num2)
-    else:
-        local result = num1
+    num1 = get_argvalues(arg1,self)
+    
+    local result
+    if op ~= nil then
+        local num2 = get_argvalues(arg2,self)
+        result = get_result(num1,op,num2)
+    else
+        result = num1
+    end
     
     local varname, varvalue = get_var(var)
-    if varvalue ~= nil then:
+    if varvalue == nil then
         self.callstack:assign(varname, result)
-    else:
-        if varvalue < self.callstack:find(varname.."_size_") then
-            self.callstack:assign(varname.."["..tostring(varvalue).."]", result)
-        else then
+        print("Armazenou na pilha:")
+        print(self.callstack:find(varname))
+    else
+        if tonumber(varvalue) <= tonumber(self.callstack:find(varname.."_size_")) then
+            self.callstack:assign(varname.."["..varvalue.."]", result)
+            print("Armazenou na pilha:")
+            print(self.callstack:find(varname.."["..varvalue.."]"))
+        else
             print("Vetor estorou")
             os.exit()
         end
+    end
 end
 
 

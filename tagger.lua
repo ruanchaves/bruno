@@ -3,8 +3,9 @@ require 'utils'
 --podemos usar so as palavras reservadas
 --para encontrar
 outer_tags = {
-    [1]="function",
-    [2]="var",
+    [1]="var",
+    --nao mudar a ordem palavra reservada
+    [2]="function",
     [3]="begin",
     [4]="end",
     [5]="=",
@@ -15,8 +16,8 @@ outer_tags = {
 }
 
 labels = {
-    [1]="header",
-    [2]="vardef",
+    [1]="vardef",
+    [2]="header",
     [3]="begin",
     [4]="end",
     [5]="attr",
@@ -25,7 +26,6 @@ labels = {
     [8]="else",
     [9]="fi",
 }
-
 
 function tag_match(line)
     --print("Entrou")

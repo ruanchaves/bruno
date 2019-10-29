@@ -46,3 +46,13 @@ function CallStack:find(var)
    end
    return found_value
 end
+
+function CallStack:find_local(var)
+   found_value = nil
+      for key, value in pairs(self.records[self.counter]) do
+         if key == var then
+            found_value = value
+         end
+      end
+   return found_value
+end
