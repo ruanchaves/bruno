@@ -22,7 +22,7 @@ verbose = true
 --
 -- Identifica as funções no arquivo
 --
-function_list = func_reader(file, verbose)
+function_list, function_name_to_index = func_reader(file, verbose)
 file:close()
 
 --
