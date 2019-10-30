@@ -35,7 +35,6 @@ function tag_match(line)
     --print(line)
     for key, value in ipairs(outer_tags) do
         if string.find(line, value) ~= nil then
-            print(labels[key])
             return labels[key]
         end
     end

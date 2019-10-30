@@ -18,7 +18,7 @@ if not file then
    os.exit(1)
 end
 
-verbose = true
+verbose = false
 --
 -- Identifica as funções no arquivo
 --

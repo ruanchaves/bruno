@@ -41,7 +41,6 @@ end
 
 function get_varname(command)
     local vardef = string.match(command,"var%s+(%l+)")
-    print(reserved)
     for i, value in ipairs(reserved) do
         if value == vardef then
             print("Não pode usar palavra reservada")
@@ -79,16 +78,20 @@ function get_attrvalues(command)
     return lside,rside,nil,nil
 end
 
-function get_funcall(command)
-  if string.match(command,"%l+%(.*%)") then
-      return ---Runner:funcall
+function get_funcall(command,run)
+  local funcall = string.match(command,"(%l+)%(.*%)")
+  if funcall then
+        run:funcall(command,"function")
+        local ret = run.callstack:find_local(funcall,run.current_function)
+        return tonumber(ret)
+  else
+      return nil
   end
 end
 
 function get_value(command,run)
     
   if string.find(command,"%l") == nil then
-    print(command)
       local number = string.match(command,"(%-?%d+)")
       return tonumber(number)
   end
@@ -107,8 +110,8 @@ function get_value(command,run)
 end
 
 function get_argvalues(command, run)
-  funcall = get_funcall(command)
-      if funcall then
+  local funcall = get_funcall(command,run)
+      if funcall ~= nil then
           return funcall
       end
   return get_value(command,run)
