@@ -33,6 +33,6 @@ function_list_tags = line_tagger(function_list, verbose)
 --
 -- Executa cada função
 --
-main_index = find_function_index(function_name_to_index, 'main%(')
+main_index = find_function_index(function_name_to_index, 'main')
 run = Runner:create(function_list, function_list_tags)
 run:execute(function_list[main_index], function_list_tags[main_index])

@@ -59,7 +59,7 @@ function get_var(command)
   local varname, varvalue = string.match(command, "(%l+)%[(%-?%d+)%]")
 
   if varname then
-      return varname, varvalue
+      return varname, tonumber(varvalue)
   end
 
   local varname = string.match(command, "%l+")
@@ -109,7 +109,7 @@ function get_value(command,run)
    end
 end
 
-function get_argvalues(command, run)
+function get_argvalue(command, run)
   local funcall = get_funcall(command,run)
       if funcall ~= nil then
           return funcall

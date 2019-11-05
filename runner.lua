@@ -37,52 +37,44 @@ function Runner:execute(cmds, cmd_tags)
         if not ((command_tag ~= "else" and command_tag ~= "fi")
             and self.if_status == false) then
             if command_tag == "header" then
-                self:header(command, command_tag)
+                self:header(command)
             elseif command_tag == "vardef" then
-                self:vardef(command, command_tag)
+                self:vardef(command)
             elseif command_tag == "begin" then
-                self:begin(command, command_tag)
+                self:begin(command)
             elseif command_tag == "end" then
-                self:end_(command, command_tag)
+                self:end_(command)
             elseif command_tag == "attr" then
-                self:attr(command, command_tag)
+                self:attr(command)
             elseif command_tag == "funcall" then
-                self:funcall(command, command_tag)
+                self:funcall(command)
             elseif command_tag == "if" then
-                self:if_(command, command_tag)
+                self:if_(command)
             elseif command_tag == "else" then
-                self:else_(command, command_tag)
+                self:else_(command)
             elseif command_tag == "fi" then
-                self:fi(command, command_tag)
+                self:fi(command)
             elseif command_tag == "print" then
-                self:print(command, command_tag)
-            else
-                print("Deu ruim")
+                self:print(command)
             end
         end
     end
 end
 
 
-function Runner:header(command, command_tag)
+function Runner:header(command)
     local function_name = name_from_function_header(command)
     self.current_function = function_name
 
     if function_name == 'main' then
         self.callstack:push("main")
-        --self.callstack:assign('__call__', command)
     end
 end
 
 
-function Runner:vardef(command, command_tag)
+function Runner:vardef(command)
     local varname = get_varname(command)
     local varsize = get_varsize(command)
-    --local test = "var " .. varname
-    --if varsize ~= nil then
-    --    test = test .. "[" .. varsize .. "]"
-    --end
-    --print(varsize)
 
     if varsize ~= nil then
         if varsize == 0 then
@@ -90,24 +82,20 @@ function Runner:vardef(command, command_tag)
             os.exit()
         end
         self.callstack:assign(varname.."_size_", varsize)
-        for i = 1, tonumber(varsize) do
+        for i = 1, varsize do
             self.callstack:assign(varname.."["..tostring(i).."]", varsize)
         end
     else 
         self.callstack:assign(varname, '0')
-        --print("Esse caso")
-        --print("Armazenou na pilha")
-        --print(self.callstack:find(varname))
     end
-    --print(test)
 end
 
-function Runner:begin(command, command_tag)
+function Runner:begin(command)
     --Fazer nada
 end
 
 
-function Runner:end_(command, command_tag)
+function Runner:end_(command)
     local _end = string.match(command,"end%s*")
 
     if self.current_function ~= "main" then
@@ -122,13 +110,13 @@ function Runner:end_(command, command_tag)
 end
 
 
-function Runner:attr(command, command_tag)
+function Runner:attr(command)
     local var,arg1,op,arg2 = get_attrvalues(command)
-    num1 = get_argvalues(arg1,self)
+    num1 = get_argvalue(arg1,self)
     
     local result
     if op ~= nil then
-        local num2 = get_argvalues(arg2,self)
+        local num2 = get_argvalue(arg2,self)
         result = get_result(num1,op,num2)
     else
         result = num1
@@ -137,13 +125,9 @@ function Runner:attr(command, command_tag)
     local varname, varvalue = get_var(var)
     if varvalue == nil then
         self.callstack:assign(varname, result)
-        --print("Armazenou na pilha:")
-        --print(self.callstack:find(varname))
     else
-        if tonumber(varvalue) <= tonumber(self.callstack:find(varname.."_size_")) then
+        if varvalue <= self.callstack:find(varname.."_size_") then
             self.callstack:assign(varname.."["..varvalue.."]", result)
-            --print("Armazenou na pilha:")
-            --print(self.callstack:find(varname.."["..varvalue.."]"))
         else
             print("Vetor estorou")
             os.exit()
@@ -152,7 +136,7 @@ function Runner:attr(command, command_tag)
 end
 
 
-function Runner:funcall(command, command_tag)
+function Runner:funcall(command)
     local param1,param2, param3 = nil,nil,nil
     param1,param2, param3 = get_param(command)
     local value1, value2, value3 = nil,nil,nil
@@ -168,30 +152,28 @@ function Runner:funcall(command, command_tag)
     self.callstack:push(name)
 
     if param3 ~= nil then
-        value3 = get_argvalues(param3,run)
+        value3 = get_value(param3,run)
         self.callstack:assign(name3, value3)
     end
 
     if param2 ~= nil then
-        value2 = get_argvalues(param2,run)
+        value2 = get_value(param2,run)
         self.callstack:assign(name2, value2)
 
     end
 
     if param1 ~= nil then
-        value1 = get_argvalues(param1,run)
+        value1 = get_value(param1,run)
         self.callstack:assign(name1, value1)
     end    
     
-    --significado
     local parent_function = self.current_function
-    --self.callstack:assign('__call__', command)
     self:execute(function_commands, function_tags)
     self.current_function = parent_function
 end
 
 
-function Runner:if_(command, command_tag)
+function Runner:if_(command)
     local value1, op, value2 = get_if(command)
     local num1 = get_value(value1,self)
     local num2 = get_value(value2,self)
@@ -213,19 +195,17 @@ function Runner:if_(command, command_tag)
 end
 
 
-function Runner:else_(command, command_tag)
+function Runner:else_(command)
     self.if_status = not self.if_status
 end
 
 
-function Runner:fi(command, command_tag)
+function Runner:fi(command)
     self.if_status = nil
 end
 
-function Runner:print(command, command_tag)
+function Runner:print(command)
     arg = string.match(command,"print%((.+)%)")
-    --print("Ta em imprimir")
-    --print(command)
-    num = get_argvalues(arg,self)
+    num = get_value(arg,self)
     print(num)
 end
