@@ -8,11 +8,12 @@ outer_tags = {
     [2]="function",
     [3]="begin",
     [4]="end",
-    [5]="=",
-    [6]="print",
+    [5]="if",
+    --nao mudar a ordem if antes de =
+    [6]="=",
+    [7]="print",
     -- nao mudar a ordem print antes de funcall
-    [7]="%(",
-    [8]="if",
+    [8]="%(",
     [9]="else",
     [10]="fi",
 }
@@ -22,10 +23,10 @@ labels = {
     [2]="header",
     [3]="begin",
     [4]="end",
-    [5]="attr",
-    [6]="print",
-    [7]="funcall",
-    [8]="if",
+    [5]="if",
+    [6]="attr",
+    [7]="print",
+    [8]="funcall",
     [9]="else",
     [10]="fi",
 }

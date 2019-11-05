@@ -34,30 +34,31 @@ function Runner:execute(cmds, cmd_tags)
     for key, value in ipairs(cmds) do
         local command = value
         local command_tag = cmd_tags[key]
-        --print("Executar = " .. value)
-        --print("command_tag = "..command_tag)
-        if command_tag == "header" then
-            self:header(command, command_tag)
-        elseif command_tag == "vardef" then
-            self:vardef(command, command_tag)
-        elseif command_tag == "begin" then
-            self:begin(command, command_tag)
-        elseif command_tag == "end" then
-            self:end_(command, command_tag)
-        elseif command_tag == "attr" then
-            self:attr(command, command_tag)
-        elseif command_tag == "funcall" then
-            self:funcall(command, command_tag)
-        elseif command_tag == "if_then" then
-            self:if_(command, command_tag)
-        elseif command_tag == "else" then
-            self:else_(command, command_tag)
-        elseif command_tag == "fi" then
-            self:fi(command, command_tag)
-        elseif command_tag == "print" then
-            self:print(command, command_tag)
-        else
-            print("Deu ruim")
+        if not ((command_tag ~= "else" and command_tag ~= "fi")
+            and self.if_status == false) then
+            if command_tag == "header" then
+                self:header(command, command_tag)
+            elseif command_tag == "vardef" then
+                self:vardef(command, command_tag)
+            elseif command_tag == "begin" then
+                self:begin(command, command_tag)
+            elseif command_tag == "end" then
+                self:end_(command, command_tag)
+            elseif command_tag == "attr" then
+                self:attr(command, command_tag)
+            elseif command_tag == "funcall" then
+                self:funcall(command, command_tag)
+            elseif command_tag == "if" then
+                self:if_(command, command_tag)
+            elseif command_tag == "else" then
+                self:else_(command, command_tag)
+            elseif command_tag == "fi" then
+                self:fi(command, command_tag)
+            elseif command_tag == "print" then
+                self:print(command, command_tag)
+            else
+                print("Deu ruim")
+            end
         end
     end
 end
@@ -191,14 +192,34 @@ end
 
 
 function Runner:if_(command, command_tag)
+    local value1, op, value2 = get_if(command)
+    local num1 = get_value(value1,self)
+    local num2 = get_value(value2,self)
+    local exp = nil
+    if op == "<" then
+        exp = num1 < num2
+    elseif op == "<=" then
+        exp = num1 <= num2
+    elseif op == ">" then
+        exp = num1 > num2
+    elseif op == ">=" then
+        exp = num1 >= num2
+    elseif op == "==" then
+        exp = num1 == num2
+    elseif op == "!=" then
+        exp = num1 ~= num2
+    end
+    self.if_status = exp
 end
 
 
 function Runner:else_(command, command_tag)
+    self.if_status = not self.if_status
 end
 
 
 function Runner:fi(command, command_tag)
+    self.if_status = nil
 end
 
 function Runner:print(command, command_tag)

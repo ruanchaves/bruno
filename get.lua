@@ -129,3 +129,7 @@ function get_result(num1,op,num2)
     return math.floor(num1/num2)
   end
 end
+
+function get_if(command)
+  return string.match(command, "if%s+(.+)%s+([=|>|<|!]+)%s+(.+)%s+")
+end
