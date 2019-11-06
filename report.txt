@@ -1,5 +1,5 @@
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
  -- RESULTADO ESPERADO:
@@ -9,18 +9,21 @@
 
 ----- FIM 
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
  -- RESULTADO ESPERADO:
 10
 -- SAÍDA DO PROGRAMA: 
 DEBUG: get_varname(     var x ) - vardef: x
+DEBUG get_attrvalues : lside ==     x ; rside == 10
+DEBUG get_attrvalues : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 10 ; op == nil ; arg2 == nil
 10
 
 ----- FIM 
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
  -- RESULTADO ESPERADO:
@@ -28,12 +31,21 @@ DEBUG: get_varname(     var x ) - vardef: x
 3
 -- SAÍDA DO PROGRAMA: 
 DEBUG: get_varname(     var x ) - vardef: x
+DEBUG get_attrvalues : lside ==     x ; rside == 5
+DEBUG get_attrvalues : arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG get_attrvalues : lside ==     x ; rside == foo()
+DEBUG get_attrvalues : arg1 == foo() ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == foo() ; op == nil ; arg2 == nil
 5
+DEBUG get_attrvalues : lside ==     ret ; rside == 3
+DEBUG get_attrvalues : arg1 == 3 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     ret ; arg1 == 3 ; op == nil ; arg2 == nil
 3
 
 ----- FIM 
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
  -- RESULTADO ESPERADO:
@@ -43,17 +55,23 @@ ERRO: acesso a índice fora do alcance do vetor.
 -- SAÍDA DO PROGRAMA: 
 DEBUG: get_varname(     var a[2] ) - vardef: a
 DEBUG: get_varname(     var varnum ) - vardef: varnum
-DEBUG: get_varname(     varnum = 10 ) - vardef: nil
-lua: ./runner.lua:85: attempt to concatenate a nil value (local 'varname')
-stack traceback:
-	./runner.lua:85: in method 'vardef'
-	./runner.lua:43: in method 'execute'
-	interpretador.lua:41: in main chunk
-	[C]: in ?
+DEBUG get_attrvalues : lside ==     varnum ; rside == 10
+DEBUG get_attrvalues : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     varnum ; arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG get_attrvalues : lside ==     a[0] ; rside == -1 - -2
+DEBUG get_attrvalues : arg1 == -1 ; op == - ; arg2 == -2
+DEBUG RUNNER:ATTR :: var ==     a[0] ; arg1 == -1 ; op == - ; arg2 == -2
+1
+DEBUG get_attrvalues : lside ==     a[1] ; rside == varnum * a[0]
+DEBUG get_attrvalues : arg1 == varnum ; op == * ; arg2 == a[0]
+DEBUG RUNNER:ATTR :: var ==     a[1] ; arg1 == varnum ; op == * ; arg2 == a[0]
+10
+1
+Vetor estorou
 
 ----- FIM 
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
  -- RESULTADO ESPERADO:
@@ -62,13 +80,22 @@ stack traceback:
 20
 -- SAÍDA DO PROGRAMA: 
 DEBUG: get_varname(     var x ) - vardef: x
+DEBUG get_attrvalues : lside ==     x ; rside == 5
+DEBUG get_attrvalues : arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG get_attrvalues : lside ==     x ; rside == 10 * x
+DEBUG get_attrvalues : arg1 == 10 ; op == * ; arg2 == x
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 10 ; op == * ; arg2 == x
 50
+DEBUG get_attrvalues : lside ==     x ; rside == 20
+DEBUG get_attrvalues : arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 20 ; op == nil ; arg2 == nil
 50
 5
 
 ----- FIM 
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
  -- RESULTADO ESPERADO:
@@ -76,17 +103,20 @@ DEBUG: get_varname(     var x ) - vardef: x
 -- SAÍDA DO PROGRAMA: 
 DEBUG: get_varname(     var x ) - vardef: x
 DEBUG: get_varname(     var y ) - vardef: y
-lua: ./get.lua:145: attempt to perform arithmetic on a nil value (local 'num2')
+DEBUG get_attrvalues : lside ==     x ; rside == 10 * zero(x,-21,y)
+DEBUG get_attrvalues : arg1 == 10 ; op == * ; arg2 == zero(x,-21,y)
+DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 10 ; op == * ; arg2 == zero(x,-21,y)
+lua: ./get.lua:167: attempt to perform arithmetic on a nil value (local 'num2')
 stack traceback:
-	./get.lua:145: in function 'get_result'
-	./runner.lua:121: in method 'attr'
+	./get.lua:167: in function 'get_result'
+	./runner.lua:130: in method 'attr'
 	./runner.lua:49: in method 'execute'
 	interpretador.lua:41: in main chunk
 	[C]: in ?
 
 ----- FIM 
 
--- DATA: Wed Nov  6 15:39:11 2019
+-- DATA: Wed Nov  6 16:34:27 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
  -- RESULTADO ESPERADO:
@@ -95,11 +125,15 @@ stack traceback:
 DEBUG: get_varname(     var vars ) - vardef: vars
 DEBUG: get_varname(     var begins ) - vardef: begins
 DEBUG: get_varname(     var ifs ) - vardef: ifs
-DEBUG: get_varname(     vars = 10 ) - vardef: nil
-lua: ./runner.lua:85: attempt to concatenate a nil value (local 'varname')
+DEBUG get_attrvalues : lside ==     vars ; rside == 10
+DEBUG get_attrvalues : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG RUNNER:ATTR :: var ==     vars ; arg1 == 10 ; op == nil ; arg2 == nil
+lua: ./get.lua:130: bad argument #1 to 'find' (string expected, got nil)
 stack traceback:
-	./runner.lua:85: in method 'vardef'
-	./runner.lua:43: in method 'execute'
+	[C]: in function 'string.find'
+	./get.lua:130: in function 'get_value'
+	./runner.lua:188: in method 'if_'
+	./runner.lua:53: in method 'execute'
 	interpretador.lua:41: in main chunk
 	[C]: in ?
 

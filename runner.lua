@@ -46,7 +46,7 @@ function Runner:execute(cmds, cmd_tags)
             elseif command_tag == "end" then
                 self:end_(command)
             elseif command_tag == "attr" then
-                self:attr(command)
+                self:attr(command, self.verbose)
             elseif command_tag == "funcall" then
                 self:funcall(command)
             elseif command_tag == "if" then
@@ -111,8 +111,17 @@ function Runner:end_(command)
 end
 
 
-function Runner:attr(command)
-    local var,arg1,op,arg2 = get_attrvalues(command)
+function Runner:attr(command, verbose)
+    verbose = verbose or false
+
+    local var,arg1,op,arg2 = get_attrvalues(command, verbose)
+    
+    if verbose == true then
+        message = "DEBUG RUNNER:ATTR :: var == %s ; arg1 == %s ; op == %s ; arg2 == %s"
+        message = string.format(message, var, arg1, op, arg2)
+        print(message)
+    end
+    
     num1 = get_argvalue(arg1,self)
     
     local result

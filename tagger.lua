@@ -3,7 +3,7 @@ require 'utils'
 --podemos usar so as palavras reservadas
 --para encontrar
 outer_tags = {
-    [1]="var",
+    [1]="var%s+",
     --nao mudar a ordem palavra reservada
     [2]="function",
     [3]="begin",

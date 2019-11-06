@@ -83,9 +83,35 @@ function get_var(command)
 
 end
 
-function get_attrvalues(command)
+function get_attrvalues(command, verbose)
+  verbose = verbose or false
   local lside,rside = string.match(command,"(.+)%s+=%s+(.+)%s*")
-  local arg1,op,arg2 = string.match(rside, "(.+)%s+([+|-|*|/])%s+(.+)%s*")
+
+  -- A função "trim" elimina espaços ao princípio 
+  -- e ao fim da string.
+  trim = function(s) return s:match "^%s*(.-)%s*$" end
+  rside = trim(rside)
+  
+  -- Aqui estamos quebrando a string em substrings usando
+  -- um ou mais espaços como delimitador.
+  tokens = {}
+  for word in rside:gmatch("%S+") do 
+    table.insert(tokens, word) 
+  end
+
+  local arg1 = tokens[1]
+  local op = tokens[2]
+  local arg2 = tokens[3]
+
+  if verbose == true then
+    message = "DEBUG get_attrvalues : lside == %s ; rside == %s"
+    message = string.format(message, lside, rside)
+    print(message)
+    message = "DEBUG get_attrvalues : arg1 == %s ; op == %s ; arg2 == %s"
+    message = string.format(message, arg1, op, arg2)
+    print(message)
+  end
+
    if arg1 ~= nil then
       return lside,arg1,op,arg2
    end
