@@ -38,32 +38,32 @@ function Runner:execute(cmds, cmd_tags)
         if not ((command_tag ~= "else" and command_tag ~= "fi")
             and self.if_status == false) then
             if command_tag == "header" then
-                self:header(command)
+                self:header(command, self.verbose)
             elseif command_tag == "vardef" then
-                self:vardef(command)
+                self:vardef(command, self.verbose)
             elseif command_tag == "begin" then
-                self:begin(command)
+                self:begin(command, self.verbose)
             elseif command_tag == "end" then
-                self:end_(command)
+                self:end_(command, self.verbose)
             elseif command_tag == "attr" then
                 self:attr(command, self.verbose)
             elseif command_tag == "funcall" then
-                self:funcall(command)
+                self:funcall(command, self.verbose)
             elseif command_tag == "if" then
-                self:if_(command)
+                self:if_(command, self.verbose)
             elseif command_tag == "else" then
-                self:else_(command)
+                self:else_(command, self.verbose)
             elseif command_tag == "fi" then
-                self:fi(command)
+                self:fi(command, self.verbose)
             elseif command_tag == "print" then
-                self:print(command)
+                self:print(command, self.verbose)
             end
         end
     end
 end
 
 
-function Runner:header(command)
+function Runner:header(command, verbose)
     local function_name = name_from_function_header(command)
     self.current_function = function_name
 
@@ -73,7 +73,7 @@ function Runner:header(command)
 end
 
 
-function Runner:vardef(command)
+function Runner:vardef(command, verbose)
     local varname = get_varname(command, self.verbose)
     local varsize = get_varsize(command)
 
@@ -91,12 +91,12 @@ function Runner:vardef(command)
     end
 end
 
-function Runner:begin(command)
+function Runner:begin(command, verbose)
     --Fazer nada
 end
 
 
-function Runner:end_(command)
+function Runner:end_(command, verbose)
     local _end = string.match(command,"end%s*")
 
     if self.current_function ~= "main" then
@@ -146,7 +146,7 @@ function Runner:attr(command, verbose)
 end
 
 
-function Runner:funcall(command)
+function Runner:funcall(command, verbose)
     local param1,param2, param3 = nil,nil,nil
     param1,param2, param3 = get_param(command)
     local value1, value2, value3 = nil,nil,nil
@@ -183,7 +183,7 @@ function Runner:funcall(command)
 end
 
 
-function Runner:if_(command)
+function Runner:if_(command, verbose)
     local value1, op, value2 = get_if(command)
     local num1 = get_value(value1,self)
     local num2 = get_value(value2,self)
@@ -205,16 +205,16 @@ function Runner:if_(command)
 end
 
 
-function Runner:else_(command)
+function Runner:else_(command, verbose)
     self.if_status = not self.if_status
 end
 
 
-function Runner:fi(command)
+function Runner:fi(command, verbose)
     self.if_status = nil
 end
 
-function Runner:print(command)
+function Runner:print(command, verbose)
     arg = string.match(command,"print%((.+)%)")
     num = get_value(arg,self)
     print(num)
