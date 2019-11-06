@@ -167,7 +167,7 @@ function get_value(command,run, verbose)
       return_value = tonumber(number)
   end
   
-  if return_value == nil:
+  if return_value == nil then
     varname,varnumber = get_var(command)
     if varnumber == nil then
       return_value = run.callstack:find(varname)

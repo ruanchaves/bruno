@@ -1,14 +1,27 @@
-DEBUG: get_varname(     var vars ) - vardef: vars
-DEBUG: get_varname(     var begins ) - vardef: begins
-DEBUG: get_varname(     var ifs ) - vardef: ifs
-DEBUG get_attrvalues : lside ==     vars ; rside == 10
-DEBUG get_attrvalues : arg1 == 10 ; op == nil ; arg2 == nil
-DEBUG RUNNER:ATTR :: var ==     vars ; arg1 == 10 ; op == nil ; arg2 == nil
-lua: ./get.lua:134: bad argument #1 to 'find' (string expected, got nil)
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var vars ) : vardef == vars
+DEBUG get_varsize(     var vars ) : varsize == nil
+    var vars
+DEBUG get_varname(     var begins ) : vardef == begins
+DEBUG get_varsize(     var begins ) : varsize == nil
+    var begins
+DEBUG get_varname(     var ifs ) : vardef == ifs
+DEBUG get_varsize(     var ifs ) : varsize == nil
+    var ifs
+DEBUG Runner:begin ( begin  )
+DEBUG get_attrvalues(     vars = 10 ) : lside ==     vars ; rside == 10
+DEBUG get_attrvalues(     vars = 10 ) : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     vars ; arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 10 ;
+DEBUG Runner:attr :: varname == vars ; varvalue == nil ;
+DEBUG Runner:begin (     begins = 20 )
+DEBUG Runner:begin (     ifs = vars + begins  )
+DEBUG get_if(     prints(ifs) ): return_value == nil;
+lua: ./get.lua:165: bad argument #1 to 'find' (string expected, got nil)
 stack traceback:
 	[C]: in function 'string.find'
-	./get.lua:134: in function 'get_value'
-	./runner.lua:188: in method 'if_'
+	./get.lua:165: in function 'get_value'
+	./runner.lua:230: in method 'if_'
 	./runner.lua:53: in method 'execute'
 	interpretador.lua:41: in main chunk
 	[C]: in ?
