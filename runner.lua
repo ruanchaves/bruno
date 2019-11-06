@@ -64,7 +64,7 @@ end
 
 
 function Runner:header(command, verbose)
-    local function_name = name_from_function_header(command)
+    local function_name = name_from_function_header(command, verbose)
     self.current_function = function_name
 
     if function_name == 'main' then
@@ -74,8 +74,8 @@ end
 
 
 function Runner:vardef(command, verbose)
-    local varname = get_varname(command, self.verbose)
-    local varsize = get_varsize(command)
+    local varname = get_varname(command, verbose)
+    local varsize = get_varsize(command, verbose)
 
     if varsize ~= nil then
         if varsize == 0 then
@@ -148,32 +148,32 @@ end
 
 function Runner:funcall(command, verbose)
     local param1,param2, param3 = nil,nil,nil
-    param1,param2, param3 = get_param(command)
+    param1,param2, param3 = get_param(command, verbose)
     local value1, value2, value3 = nil,nil,nil
     --deixar invertido pode dar problema
 
-    local name = name_from_function_call(command)
+    local name = name_from_function_call(command, verbose)
     local index = self:find_function_index(name)
     local function_commands = self.function_list[index]
     local function_tags = self.function_list_tags[index]
     header = function_commands[1]
-    local name1,name2,name3= get_param(header)
+    local name1,name2,name3= get_param(header, verbose)
 
     self.callstack:push(name)
 
     if param3 ~= nil then
-        value3 = get_value(param3,run)
+        value3 = get_value(param3,run, verbose)
         self.callstack:assign(name3, value3)
     end
 
     if param2 ~= nil then
-        value2 = get_value(param2,run)
+        value2 = get_value(param2,run, verbose)
         self.callstack:assign(name2, value2)
 
     end
 
     if param1 ~= nil then
-        value1 = get_value(param1,run)
+        value1 = get_value(param1,run, verbose)
         self.callstack:assign(name1, value1)
     end    
     
@@ -184,9 +184,9 @@ end
 
 
 function Runner:if_(command, verbose)
-    local value1, op, value2 = get_if(command)
-    local num1 = get_value(value1,self)
-    local num2 = get_value(value2,self)
+    local value1, op, value2 = get_if(command, verbose)
+    local num1 = get_value(value1,self, verbose)
+    local num2 = get_value(value2,self, verbose)
     local exp = nil
     if op == "<" then
         exp = num1 < num2
@@ -216,6 +216,6 @@ end
 
 function Runner:print(command, verbose)
     arg = string.match(command,"print%((.+)%)")
-    num = get_value(arg,self)
+    num = get_value(arg,self, verbose)
     print(num)
 end
