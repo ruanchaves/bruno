@@ -1,6 +1,10 @@
-lua: ./runner.lua:84: attempt to concatenate a nil value (local 'varname')
+DEBUG: get_varname(     var vars ) - vardef: vars
+DEBUG: get_varname(     var begins ) - vardef: begins
+DEBUG: get_varname(     var ifs ) - vardef: ifs
+DEBUG: get_varname(     vars = 10 ) - vardef: nil
+lua: ./runner.lua:85: attempt to concatenate a nil value (local 'varname')
 stack traceback:
-	./runner.lua:84: in method 'vardef'
-	./runner.lua:42: in method 'execute'
-	interpretador.lua:38: in main chunk
+	./runner.lua:85: in method 'vardef'
+	./runner.lua:43: in method 'execute'
+	interpretador.lua:41: in main chunk
 	[C]: in ?

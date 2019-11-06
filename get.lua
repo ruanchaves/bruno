@@ -39,8 +39,17 @@ function get_param(command)
     end
 end
 
-function get_varname(command)
+function get_varname(command, verbose)
+
+  verbose = verbose or false
+
     local vardef = string.match(command,"var%s+(%l+)")
+
+    if verbose == true then
+      message = string.format("DEBUG: get_varname( %s ) - vardef: %s", command, vardef)
+      print(message)
+    end
+
     for i, value in ipairs(reserved) do
         if value == vardef then
             print("Não pode usar palavra reservada")
@@ -57,7 +66,7 @@ end
 
 function get_var(command)
   local varname, varvalue = string.match(command, "(%l+)%[(%-?%d+)%]")
-
+ 
   if varname then
     local varvalue = tonumber(varvalue)
     if varvalue < 0 then

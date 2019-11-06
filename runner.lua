@@ -19,6 +19,7 @@ function Runner:create(function_list, function_list_tags)
     runner_object.function_list_tags = function_list_tags
     runner_object.if_status = nil
     runner_object.current_function = nil
+    runner_object.verbose = false
     return runner_object
  end
 
@@ -73,7 +74,7 @@ end
 
 
 function Runner:vardef(command)
-    local varname = get_varname(command)
+    local varname = get_varname(command, self.verbose)
     local varsize = get_varsize(command)
 
     if varsize ~= nil then
