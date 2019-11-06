@@ -160,7 +160,17 @@ end
 
 function get_value(command,run, verbose)
     
+  if command == nil then 
+    return 0
+  end
+  
   return_value = nil 
+
+  if verbose == true then
+    message = "DEBUG get_value( %s ): return_value == %s;"
+    message = string.format(message, command, return_value)
+    print(message)
+  end
 
   if string.find(command,"%l") == nil then
       local number = string.match(command,"(%-?%d+)")
@@ -213,6 +223,12 @@ end
 
 function get_result(num1,op,num2, verbose)
   return_value = nil
+  if num1 == nil then
+    num1 = 0
+  end
+  if num2 == nil then
+    num2 = 0
+  end
   if op == "+" then
     return_value = num1 + num2
   elseif op == "-" then

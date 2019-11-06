@@ -249,7 +249,7 @@ function Runner:if_(command, verbose)
         message = string.format(message, command, value1, op, value2)
         print(message)
         message = "DEBUG Runner:if_( %s ) :: num1 == %s ; num2 == %s ; exp == %s"
-        message = string.format(message, num1, num2, exp)
+        message = string.format(message, command, num1, num2, exp)
         print(message)
     end
 end

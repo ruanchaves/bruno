@@ -36,6 +36,6 @@ function_list_tags = line_tagger(function_list, verbose)
 main_index = find_function_index(function_name_to_index, 'main')
 run = Runner:create(function_list, function_list_tags)
 
-run.verbose = true
+-- run.verbose = true
 
 run:execute(function_list[main_index], function_list_tags[main_index])
