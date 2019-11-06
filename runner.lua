@@ -70,6 +70,11 @@ function Runner:header(command, verbose)
     if function_name == 'main' then
         self.callstack:push("main")
     end
+    if verbose == true then
+        message = "DEBUG Runner:header( %s) :: function_name == %s;"
+        message = string.format(message, command, function_name)
+        print(message)
+    end
 end
 
 
@@ -89,9 +94,19 @@ function Runner:vardef(command, verbose)
     else 
         self.callstack:assign(varname, 0)
     end
+    if verbose == true then
+        message = "DEBUG Runner:vardef( %s ) :: varname == %s ; varsize == %s ;"
+        message = string.format(command, varname, varsize)
+        print(message)
+    end
 end
 
 function Runner:begin(command, verbose)
+    if verbose == true then
+        message = "DEBUG Runner:begin ( %s )"
+        message = string.format(message, command)
+        print(message)
+    end
     --Fazer nada
 end
 
@@ -108,6 +123,11 @@ function Runner:end_(command, verbose)
             self.callstack:assign(name,value) 
         end
     end
+    if verbose == true then
+        message = "DEBUG Runner:end_( %s ) :: _end == %s; name == %s; value == %s"
+        message = string.format(message, command, _end, name, value)
+        print(message)
+    end
 end
 
 
@@ -115,12 +135,6 @@ function Runner:attr(command, verbose)
     verbose = verbose or false
 
     local var,arg1,op,arg2 = get_attrvalues(command, verbose)
-    
-    if verbose == true then
-        message = "DEBUG RUNNER:ATTR :: var == %s ; arg1 == %s ; op == %s ; arg2 == %s"
-        message = string.format(message, var, arg1, op, arg2)
-        print(message)
-    end
     
     num1 = get_argvalue(arg1,self)
     
@@ -142,6 +156,18 @@ function Runner:attr(command, verbose)
             print("ERRO: acesso a índice fora do alcance do vetor.")
             os.exit()
         end
+    end
+
+    if verbose == true then
+        message = "DEBUG Runner:attr :: var == %s ; arg1 == %s ; op == %s ; arg2 == %s"
+        message = string.format(message, var, arg1, op, arg2)
+        print(message)
+        message = "DEBUG Runner:attr :: num1 == %s ; num2 == %s ; result == %s ;"
+        message = string.format(message, num1, num2, result)
+        print(message)
+        message = "DEBUG Runner:attr :: varname == %s ; varvalue == %s ;"
+        message = string.format(message, varname, varvalue)
+        print(message)
     end
 end
 
@@ -180,6 +206,22 @@ function Runner:funcall(command, verbose)
     local parent_function = self.current_function
     self:execute(function_commands, function_tags)
     self.current_function = parent_function
+
+    if verbose == true then
+        message = "DEBUG Runner:funcall( %s ) :: param1 == %s ; param2 == %s ; param3 == %s"
+        message = string.format(message, command, param1, param2, param3)
+        print(message)
+        message = "DEBUG Runner:funcall( %s ) :: value1 == %s ; value2 == %s ; value3 == %s"
+        message = string.format(message, command, value1, value2, value3)
+        print(message) 
+        message = "DEBUG Runner:funcall( %s ) :: name == %s ; index == %s ; header == %s"
+        message = string.format(message, command, name, index, header)
+        print(message)      
+        message = "DEBUG Runner:funcall( %s ) :: parent_function == %s"
+        message = string.format(message, command, parent_function)
+        print(message)       
+    end
+
 end
 
 
@@ -202,20 +244,37 @@ function Runner:if_(command, verbose)
         exp = num1 ~= num2
     end
     self.if_status = exp
+    if verbose == true then
+        message = "DEBUG Runner:if_( %s ) :: value1 == %s ; op == %s ; value2 == %s"
+        message = string.format(message, command, value1, op, value2)
+        print(message)
+        message = "DEBUG Runner:if_( %s ) :: num1 == %s ; num2 == %s ; exp == %s"
+        message = string.format(message, num1, num2, exp)
+        print(message)
+    end
 end
 
 
 function Runner:else_(command, verbose)
     self.if_status = not self.if_status
+    if verbose == true then
+        print(string.format("DEBUG Runner:else_( %s )", command))
+    end
 end
 
 
 function Runner:fi(command, verbose)
     self.if_status = nil
+    if verbose == true then
+        print(string.format("DEBUG Runner:fi( %s )", command))
+    end
 end
 
 function Runner:print(command, verbose)
     arg = string.match(command,"print%((.+)%)")
     num = get_value(arg,self, verbose)
+    if verbose == true then
+        print(string.format("DEBUG Runner:print( %s )", command))
+    end
     print(num)
 end
