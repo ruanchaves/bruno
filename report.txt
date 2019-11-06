@@ -1,0 +1,94 @@
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
+ -- RESULTADO ESPERADO:
+12
+-- SAÍDA DO PROGRAMA: 
+12
+
+----- FIM 
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
+ -- RESULTADO ESPERADO:
+10
+-- SAÍDA DO PROGRAMA: 
+10
+
+----- FIM 
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
+ -- RESULTADO ESPERADO:
+5
+3
+-- SAÍDA DO PROGRAMA: 
+5
+3
+
+----- FIM 
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
+ -- RESULTADO ESPERADO:
+1
+10
+ERRO: acesso a índice fora do alcance do vetor.
+-- SAÍDA DO PROGRAMA: 
+lua: ./runner.lua:84: attempt to concatenate a nil value (local 'varname')
+stack traceback:
+	./runner.lua:84: in method 'vardef'
+	./runner.lua:42: in method 'execute'
+	interpretador.lua:38: in main chunk
+	[C]: in ?
+
+----- FIM 
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
+ -- RESULTADO ESPERADO:
+5
+50
+20
+-- SAÍDA DO PROGRAMA: 
+50
+50
+5
+
+----- FIM 
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
+ -- RESULTADO ESPERADO:
+20
+-- SAÍDA DO PROGRAMA: 
+lua: ./get.lua:136: attempt to perform arithmetic on a nil value (local 'num2')
+stack traceback:
+	./get.lua:136: in function 'get_result'
+	./runner.lua:120: in method 'attr'
+	./runner.lua:48: in method 'execute'
+	interpretador.lua:38: in main chunk
+	[C]: in ?
+
+----- FIM 
+
+-- DATA: Wed Nov  6 14:45:01 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
+ -- RESULTADO ESPERADO:
+30
+-- SAÍDA DO PROGRAMA: 
+lua: ./runner.lua:84: attempt to concatenate a nil value (local 'varname')
+stack traceback:
+	./runner.lua:84: in method 'vardef'
+	./runner.lua:42: in method 'execute'
+	interpretador.lua:38: in main chunk
+	[C]: in ?
+
+----- FIM 

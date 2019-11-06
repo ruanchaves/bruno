@@ -1,0 +1,6 @@
+lua: ./runner.lua:84: attempt to concatenate a nil value (local 'varname')
+stack traceback:
+	./runner.lua:84: in method 'vardef'
+	./runner.lua:42: in method 'execute'
+	interpretador.lua:38: in main chunk
+	[C]: in ?

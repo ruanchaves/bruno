@@ -78,7 +78,7 @@ function Runner:vardef(command)
 
     if varsize ~= nil then
         if varsize == 0 then
-            print("chave não pode ser 0")
+            print("ERRO: acesso a chave com valor menor que 1.")
             os.exit()
         end
         self.callstack:assign(varname.."_size_", varsize)
@@ -129,7 +129,7 @@ function Runner:attr(command)
         if varvalue < self.callstack:find(varname.."_size_") then
             self.callstack:assign(varname.."["..varvalue.."]", result)
         else
-            print("Vetor estorou")
+            print("ERRO: acesso a índice fora do alcance do vetor.")
             os.exit()
         end
     end
