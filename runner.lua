@@ -82,11 +82,11 @@ function Runner:vardef(command)
             os.exit()
         end
         self.callstack:assign(varname.."_size_", varsize)
-        for i = 1, varsize do
+        for i = 0, varsize-1 do
             self.callstack:assign(varname.."["..tostring(i).."]", varsize)
         end
     else 
-        self.callstack:assign(varname, '0')
+        self.callstack:assign(varname, 0)
     end
 end
 
@@ -126,7 +126,7 @@ function Runner:attr(command)
     if varvalue == nil then
         self.callstack:assign(varname, result)
     else
-        if varvalue <= self.callstack:find(varname.."_size_") then
+        if varvalue < self.callstack:find(varname.."_size_") then
             self.callstack:assign(varname.."["..varvalue.."]", result)
         else
             print("Vetor estorou")

@@ -59,7 +59,12 @@ function get_var(command)
   local varname, varvalue = string.match(command, "(%l+)%[(%-?%d+)%]")
 
   if varname then
-      return varname, tonumber(varvalue)
+    local varvalue = tonumber(varvalue)
+    if varvalue < 0 then
+      varvalue = -varvalue-1
+    end
+    
+    return varname, varvalue
   end
 
   local varname = string.match(command, "%l+")
@@ -100,7 +105,11 @@ function get_value(command,run)
   if varnumber == nil then
     return run.callstack:find(varname)
   else
-    if tonumber(varnumber) > tonumber(run.callstack:find(varname.."_size_")) then
+    if varnumber < 0 then
+      varnumber = -varnumber-1
+    end
+
+    if tonumber(varnumber) >= tonumber(run.callstack:find(varname.."_size_")) then
         print("Vetor estorou")
         os.exit()
     else
