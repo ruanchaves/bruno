@@ -4,10 +4,10 @@ DEBUG: get_varname(     var ifs ) - vardef: ifs
 DEBUG get_attrvalues : lside ==     vars ; rside == 10
 DEBUG get_attrvalues : arg1 == 10 ; op == nil ; arg2 == nil
 DEBUG RUNNER:ATTR :: var ==     vars ; arg1 == 10 ; op == nil ; arg2 == nil
-lua: ./get.lua:130: bad argument #1 to 'find' (string expected, got nil)
+lua: ./get.lua:134: bad argument #1 to 'find' (string expected, got nil)
 stack traceback:
 	[C]: in function 'string.find'
-	./get.lua:130: in function 'get_value'
+	./get.lua:134: in function 'get_value'
 	./runner.lua:188: in method 'if_'
 	./runner.lua:53: in method 'execute'
 	interpretador.lua:41: in main chunk

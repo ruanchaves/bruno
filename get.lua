@@ -91,7 +91,7 @@ function get_attrvalues(command, verbose)
   -- e ao fim da string.
   trim = function(s) return s:match "^%s*(.-)%s*$" end
   rside = trim(rside)
-  
+
   -- Aqui estamos quebrando a string em substrings usando
   -- um ou mais espaços como delimitador.
   tokens = {}

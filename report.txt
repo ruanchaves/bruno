@@ -1,5 +1,5 @@
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
  -- RESULTADO ESPERADO:
@@ -9,7 +9,7 @@
 
 ----- FIM 
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
  -- RESULTADO ESPERADO:
@@ -23,7 +23,7 @@ DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 10 ; op == nil ; arg2 == nil
 
 ----- FIM 
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
  -- RESULTADO ESPERADO:
@@ -45,7 +45,7 @@ DEBUG RUNNER:ATTR :: var ==     ret ; arg1 == 3 ; op == nil ; arg2 == nil
 
 ----- FIM 
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
  -- RESULTADO ESPERADO:
@@ -71,7 +71,7 @@ Vetor estorou
 
 ----- FIM 
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
  -- RESULTADO ESPERADO:
@@ -95,7 +95,7 @@ DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 20 ; op == nil ; arg2 == nil
 
 ----- FIM 
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
  -- RESULTADO ESPERADO:
@@ -106,9 +106,9 @@ DEBUG: get_varname(     var y ) - vardef: y
 DEBUG get_attrvalues : lside ==     x ; rside == 10 * zero(x,-21,y)
 DEBUG get_attrvalues : arg1 == 10 ; op == * ; arg2 == zero(x,-21,y)
 DEBUG RUNNER:ATTR :: var ==     x ; arg1 == 10 ; op == * ; arg2 == zero(x,-21,y)
-lua: ./get.lua:167: attempt to perform arithmetic on a nil value (local 'num2')
+lua: ./get.lua:171: attempt to perform arithmetic on a nil value (local 'num2')
 stack traceback:
-	./get.lua:167: in function 'get_result'
+	./get.lua:171: in function 'get_result'
 	./runner.lua:130: in method 'attr'
 	./runner.lua:49: in method 'execute'
 	interpretador.lua:41: in main chunk
@@ -116,7 +116,7 @@ stack traceback:
 
 ----- FIM 
 
--- DATA: Wed Nov  6 16:34:27 2019
+-- DATA: Wed Nov  6 16:45:03 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
  -- RESULTADO ESPERADO:
@@ -128,10 +128,10 @@ DEBUG: get_varname(     var ifs ) - vardef: ifs
 DEBUG get_attrvalues : lside ==     vars ; rside == 10
 DEBUG get_attrvalues : arg1 == 10 ; op == nil ; arg2 == nil
 DEBUG RUNNER:ATTR :: var ==     vars ; arg1 == 10 ; op == nil ; arg2 == nil
-lua: ./get.lua:130: bad argument #1 to 'find' (string expected, got nil)
+lua: ./get.lua:134: bad argument #1 to 'find' (string expected, got nil)
 stack traceback:
 	[C]: in function 'string.find'
-	./get.lua:130: in function 'get_value'
+	./get.lua:134: in function 'get_value'
 	./runner.lua:188: in method 'if_'
 	./runner.lua:53: in method 'execute'
 	interpretador.lua:41: in main chunk

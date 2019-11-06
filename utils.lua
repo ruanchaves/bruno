@@ -1,3 +1,19 @@
+-- A função "trim" elimina espaços ao princípio 
+-- e ao fim da string.
+function trim_string(s)
+  return s:match "^%s*(.-)%s*$"
+end
+
+-- Aqui estamos quebrando a string em substrings usando
+-- um ou mais espaços como delimitador.
+function split_tokens(s)
+  tokens = {}
+  for word in rside:gmatch("%S+") do 
+    table.insert(tokens, word) 
+  end
+  return tokens
+end  
+
 function table.clone(org)
     return {table.unpack(org)}
   end
