@@ -5,10 +5,10 @@ require 'utils'
 outer_tags = {
     [1]="var%s+",
     --nao mudar a ordem palavra reservada
-    [2]="function",
-    [3]="begin",
-    [4]="end",
-    [5]="if",
+    [2]="function%s+",
+    [3]="begin%s+",
+    [4]="end%s+",
+    [5]="if%s+",
     --nao mudar a ordem if antes de =
     [6]="=",
     [7]="print",

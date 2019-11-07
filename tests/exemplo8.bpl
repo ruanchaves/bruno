@@ -10,5 +10,5 @@ begin
     vars = 10
     begins = 20
     ifs = vars + begins 
-    prints(ifs)
+    print(ifs)
 end

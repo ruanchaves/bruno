@@ -1,0 +1,242 @@
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
+ -- RESULTADO ESPERADO:
+12
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+
+----- FIM 
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
+ -- RESULTADO ESPERADO:
+10
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG get_attrvalues(     x = 10 ) : lside ==     x ; rside == 10
+DEBUG get_attrvalues(     x = 10 ) : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     x ; arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 10 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 10; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+10
+
+----- FIM 
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
+ -- RESULTADO ESPERADO:
+5
+3
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG get_attrvalues(     x = 5 ) : lside ==     x ; rside == 5
+DEBUG get_attrvalues(     x = 5 ) : arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     x ; arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 5 ; num2 == nil ; result == 5 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG get_attrvalues(     x = foo() ) : lside ==     x ; rside == foo()
+DEBUG get_attrvalues(     x = foo() ) : arg1 == foo() ; op == nil ; arg2 == nil
+DEBUG Runner:header( function foo()) :: function_name == foo;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 5; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+5
+DEBUG get_attrvalues(     ret = 3 ) : lside ==     ret ; rside == 3
+DEBUG get_attrvalues(     ret = 3 ) : arg1 == 3 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     ret ; arg1 == 3 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 3 ; num2 == nil ; result == 3 ;
+DEBUG Runner:attr :: varname == ret ; varvalue == nil ;
+DEBUG Runner:attr :: var ==     x ; arg1 == foo() ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == nil ; num2 == nil ; result == nil ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 5; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+5
+
+----- FIM 
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
+ -- RESULTADO ESPERADO:
+1
+10
+ERRO: acesso a índice fora do alcance do vetor.
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var a[2] ) : vardef == a
+DEBUG get_varsize(     var a[2] ) : varsize == 2
+    var a[2]
+DEBUG get_varname(     var varnum ) : vardef == varnum
+DEBUG get_varsize(     var varnum ) : varsize == nil
+    var varnum
+DEBUG get_attrvalues(     varnum = 10 ) : lside ==     varnum ; rside == 10
+DEBUG get_attrvalues(     varnum = 10 ) : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     varnum ; arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 10 ;
+DEBUG Runner:attr :: varname == varnum ; varvalue == nil ;
+DEBUG get_attrvalues(     a[0] = -1 - -2 ) : lside ==     a[0] ; rside == -1 - -2
+DEBUG get_attrvalues(     a[0] = -1 - -2 ) : arg1 == -1 ; op == - ; arg2 == -2
+DEBUG Runner:attr :: var ==     a[0] ; arg1 == -1 ; op == - ; arg2 == -2
+DEBUG Runner:attr :: num1 == -1 ; num2 == nil ; result == 1 ;
+DEBUG Runner:attr :: varname == a ; varvalue == 0 ;
+DEBUG get_value( a[0] ): return_value == nil;
+DEBUG get_value( a[0] ): number == nil; return_value == 1; varname == a; varnumber == 0
+DEBUG Runner:print(     print(a[0]) )
+1
+DEBUG get_attrvalues(     a[1] = varnum * a[0] ) : lside ==     a[1] ; rside == varnum * a[0]
+DEBUG get_attrvalues(     a[1] = varnum * a[0] ) : arg1 == varnum ; op == * ; arg2 == a[0]
+DEBUG Runner:attr :: var ==     a[1] ; arg1 == varnum ; op == * ; arg2 == a[0]
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 10 ;
+DEBUG Runner:attr :: varname == a ; varvalue == 1 ;
+DEBUG Runner:header( function faznada()) :: function_name == faznada;
+DEBUG Runner:funcall(     faznada() ) :: param1 == nil ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     faznada() ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     faznada() ) :: name == faznada ; index == 3 ; header == function faznada()
+DEBUG Runner:funcall(     faznada() ) :: parent_function == main
+
+----- FIM 
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
+ -- RESULTADO ESPERADO:
+5
+50
+20
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG get_attrvalues(     x = 5 ) : lside ==     x ; rside == 5
+DEBUG get_attrvalues(     x = 5 ) : arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     x ; arg1 == 5 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 5 ; num2 == nil ; result == 5 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 5; varname == x; varnumber == nil
+DEBUG Runner:header( function bar(x)) :: function_name == bar;
+DEBUG get_attrvalues(     x = 10 * x ) : lside ==     x ; rside == 10 * x
+DEBUG get_attrvalues(     x = 10 * x ) : arg1 == 10 ; op == * ; arg2 == x
+DEBUG Runner:attr :: var ==     x ; arg1 == 10 ; op == * ; arg2 == x
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 50 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG Runner:header( function foo()) :: function_name == foo;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 50; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+50
+DEBUG get_attrvalues(     x = 20 ) : lside ==     x ; rside == 20
+DEBUG get_attrvalues(     x = 20 ) : arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     x ; arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 20 ; num2 == nil ; result == 20 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG Runner:funcall(     foo() ) :: param1 == nil ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     foo() ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     foo() ) :: name == foo ; index == 1 ; header == function foo()
+DEBUG Runner:funcall(     foo() ) :: parent_function == bar
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 20; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+20
+DEBUG Runner:funcall(     bar(x) ) :: param1 == x ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     bar(x) ) :: value1 == 5 ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     bar(x) ) :: name == bar ; index == 2 ; header == function foo()
+DEBUG Runner:funcall(     bar(x) ) :: parent_function == main
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 20; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+20
+
+----- FIM 
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
+ -- RESULTADO ESPERADO:
+20
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG get_varname(     var y ) : vardef == y
+DEBUG get_varsize(     var y ) : varsize == nil
+    var y
+DEBUG get_attrvalues(     x = 10 * zero(x,-21,y) ) : lside ==     x ; rside == 10 * zero(x,-21,y)
+DEBUG get_attrvalues(     x = 10 * zero(x,-21,y) ) : arg1 == 10 ; op == * ; arg2 == zero(x,-21,y)
+DEBUG Runner:header( function zero(a,b,c)) :: function_name == zero;
+DEBUG Runner:attr :: var ==     x ; arg1 == 10 ; op == * ; arg2 == zero(x,-21,y)
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 0 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG get_if(     if x == 0 then ): return_value == x;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 0; varname == x; varnumber == nil
+DEBUG Runner:if_(     if x == 0 then ) :: value1 == x ; op == nil ; value2 == nil
+DEBUG Runner:if_(     if x == 0 then ) :: num1 == 0 ; num2 == 0 ; exp == nil
+DEBUG get_attrvalues(         x = 20 ) : lside ==         x ; rside == 20
+DEBUG get_attrvalues(         x = 20 ) : arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==         x ; arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 20 ; num2 == nil ; result == 20 ;
+DEBUG Runner:attr :: varname == x ; varvalue == nil ;
+DEBUG Runner:fi(     fi )
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 20; varname == x; varnumber == nil
+DEBUG Runner:print(     print(x) )
+20
+
+----- FIM 
+
+-- DATA: Wed Nov  6 22:00:29 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
+ -- RESULTADO ESPERADO:
+30
+-- SAÍDA DO PROGRAMA: 
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var vars ) : vardef == vars
+DEBUG get_varsize(     var vars ) : varsize == nil
+    var vars
+DEBUG get_varname(     var begins ) : vardef == begins
+DEBUG get_varsize(     var begins ) : varsize == nil
+    var begins
+DEBUG get_varname(     var ifs ) : vardef == ifs
+DEBUG get_varsize(     var ifs ) : varsize == nil
+    var ifs
+DEBUG Runner:begin ( begin  )
+DEBUG get_attrvalues(     vars = 10 ) : lside ==     vars ; rside == 10
+DEBUG get_attrvalues(     vars = 10 ) : arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     vars ; arg1 == 10 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 10 ;
+DEBUG Runner:attr :: varname == vars ; varvalue == nil ;
+DEBUG get_attrvalues(     begins = 20 ) : lside ==     begins ; rside == 20
+DEBUG get_attrvalues(     begins = 20 ) : arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: var ==     begins ; arg1 == 20 ; op == nil ; arg2 == nil
+DEBUG Runner:attr :: num1 == 20 ; num2 == nil ; result == 20 ;
+DEBUG Runner:attr :: varname == begins ; varvalue == nil ;
+DEBUG get_attrvalues(     ifs = vars + begins  ) : lside ==     ifs ; rside == vars + begins
+DEBUG get_attrvalues(     ifs = vars + begins  ) : arg1 == vars ; op == + ; arg2 == begins
+DEBUG Runner:attr :: var ==     ifs ; arg1 == vars ; op == + ; arg2 == begins
+DEBUG Runner:attr :: num1 == 10 ; num2 == nil ; result == 30 ;
+DEBUG Runner:attr :: varname == ifs ; varvalue == nil ;
+DEBUG get_value( ifs ): return_value == nil;
+DEBUG get_value( ifs ): number == nil; return_value == 30; varname == ifs; varnumber == nil
+DEBUG Runner:print(     print(ifs) )
+30
+
+----- FIM 
