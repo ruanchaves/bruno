@@ -3,10 +3,8 @@ function fat(i)
 begin
     tmp = i - 1
     if i == 1 then
-	print(111)
         ret = 1
     else
-	print(222)
         ret = i * fat(tmp)
     fi
 end

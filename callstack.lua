@@ -55,18 +55,19 @@ function CallStack:find(var)
 end
 
 function CallStack:find_local(var,function_name)
+   local idx = nil
    local found_value = nil
    for key, value in ipairs(self.functions) do
       if value == function_name then
          idx = key
-         break
       end
    end
 
-   for key, value in pairs(self.records[idx]) do
-      if key == var then
+   if self.records[idx] ~= nil then 
+      for key, value in pairs(self.records[idx]) do
+         if key == var then
             found_value = value
-            break
+         end
       end
    end
    return found_value
