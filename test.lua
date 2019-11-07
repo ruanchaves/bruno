@@ -11,10 +11,10 @@ instructions = {
         ["filename"]= "./tests/exemplo3.bpl",
         ["expected_output"]= {5, 3}
     },    
-    -- {
-    --     ["filename"]= "./tests/exemplo4.bpl",
-    --     ["expected_output"]= {6}
-    -- },
+    {
+         ["filename"]= "./tests/exemplo4.bpl",
+         ["expected_output"]= {6}
+    },
     {
         ["filename"]= "./tests/exemplo5.bpl",
         ["expected_output"]= {1, 10, "ERRO: acesso a índice fora do alcance do vetor."}

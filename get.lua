@@ -79,11 +79,13 @@ end
 
 function get_var(command, verbose)
   local varname, varvalue = string.match(command, "(%l+)%[(%-?%d+)%]")
- 
+  local array_size = nil 
+
   if varname then
     varvalue = tonumber(varvalue)
     if varvalue < 0 then
-      varvalue = -varvalue-1
+      array_size = tonumber(run.callstack:find(varname.."_size_"))
+      varvalue = array_size + varvalue
     end
     
     return varname, varvalue
@@ -180,9 +182,6 @@ function get_value(command,run, verbose)
     if varnumber == nil then
       return_value = run.callstack:find(varname)
     else
-      if varnumber < 0 then
-        varnumber = -varnumber-1
-      end
 
       if tonumber(varnumber) >= tonumber(run.callstack:find(varname.."_size_")) then
           print("Vetor estorou")
