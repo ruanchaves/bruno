@@ -113,15 +113,17 @@ end
 
 function Runner:end_(command, verbose)
     local _end = string.match(command,"end%s*")
+    local name, value = nil, nil
 
     if self.current_function ~= "main" then
-        local name = self.current_function
-        local value = nil
-        local value = self.callstack:find_local("ret",name)  
+        name = self.current_function
+        value = self.callstack:find_local("ret",name)  
         self.callstack:pop()
         if value ~= nil then
             self.callstack:assign(name,value) 
-        end
+        else
+	    self.callstack:assign(name,0)
+	end
     end
     if verbose == true then
         message = "DEBUG Runner:end_( %s ) :: _end == %s; name == %s; value == %s"
@@ -132,21 +134,22 @@ end
 
 
 function Runner:attr(command, verbose)
-    verbose = verbose or false
-
+    local verbose = verbose or false
     local var,arg1,op,arg2 = get_attrvalues(command, verbose)
-    
-    num1 = get_argvalue(arg1,self)
-    
-    local result
+    local num1 = get_argvalue(arg1,self, verbose)
+    local num2 = nil
+    local result = nil
+    local varname = nil
+    local varvalue = nil
+
     if op ~= nil then
-        local num2 = get_argvalue(arg2,self)
-        result = get_result(num1,op,num2)
+        num2 = get_argvalue(arg2,self, verbose)
+        result = get_result(num1,op,num2, verbose)
     else
         result = num1
     end
     
-    local varname, varvalue = get_var(var)
+    varname, varvalue = get_var(var, verbose)
     if varvalue == nil then
         self.callstack:assign(varname, result)
     else
@@ -158,6 +161,7 @@ function Runner:attr(command, verbose)
         end
     end
 
+    
     if verbose == true then
         message = "DEBUG Runner:attr :: var == %s ; arg1 == %s ; op == %s ; arg2 == %s"
         message = string.format(message, var, arg1, op, arg2)
@@ -173,19 +177,39 @@ end
 
 
 function Runner:funcall(command, verbose)
+    local verbose = verbose or false
     local param1,param2, param3 = nil,nil,nil
-    param1,param2, param3 = get_param(command, verbose)
     local value1, value2, value3 = nil,nil,nil
     --deixar invertido pode dar problema
-
     local name = name_from_function_call(command, verbose)
     local index = self:find_function_index(name)
     local function_commands = self.function_list[index]
     local function_tags = self.function_list_tags[index]
-    header = function_commands[1]
-    local name1,name2,name3= get_param(header, verbose)
+    
+    local header = function_commands[1]
+    local name1,name2,name3 = get_param(header, verbose)
 
+    local parent_function = nil
+    
+    param1,param2, param3 = get_param(command, verbose)
     self.callstack:push(name)
+
+    if verbose == true then
+        message = "DEBUG Runner:funcall( %s ) :: param1 == %s ; param2 == %s ; param3 == %s"
+        message = string.format(message, command, param1, param2, param3)
+        print(message)
+        message = "DEBUG Runner:funcall( %s ) :: value1 == %s ; value2 == %s ; value3 == %s"
+        message = string.format(message, command, value1, value2, value3)
+        print(message) 
+        message = "DEBUG Runner:funcall( %s ) :: name == %s ; index == %s ; header == %s"
+        message = string.format(message, command, name, index, header)
+        print(message)      
+        message = "DEBUG Runner:funcall( %s ) :: parent_function == %s"
+        message = string.format(message, command, parent_function)
+        print(message)       
+    end
+
+    
 
     if param3 ~= nil then
         value3 = get_value(param3,run, verbose)
@@ -203,7 +227,7 @@ function Runner:funcall(command, verbose)
         self.callstack:assign(name1, value1)
     end    
     
-    local parent_function = self.current_function
+    parent_function = self.current_function
     self:execute(function_commands, function_tags)
     self.current_function = parent_function
 
@@ -273,8 +297,8 @@ end
 function Runner:print(command, verbose)
     arg = string.match(command,"print%((.+)%)")
     num = get_value(arg,self, verbose)
+    print(num)
     if verbose == true then
         print(string.format("DEBUG Runner:print( %s )", command))
     end
-    print(num)
 end

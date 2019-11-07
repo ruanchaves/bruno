@@ -20,11 +20,6 @@ begin
 end
 
 function main()  
-    var x
-    var y
-    var z
-    var v[2]
-    var a
 begin  
     x = 5
     y = -6

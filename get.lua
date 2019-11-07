@@ -12,9 +12,9 @@ reserved = {
 }
 
 function get_param(command, verbose)
-    local param1,param2,param3 = nil
+    local param1,param2,param3 = nil, nil, nil
 
-    find = string.find(command,"%(%)")
+    local find = string.find(command,"%(%)")
     if find ~= nil then
         return nil
     end
@@ -81,7 +81,7 @@ function get_var(command, verbose)
   local varname, varvalue = string.match(command, "(%l+)%[(%-?%d+)%]")
  
   if varname then
-    local varvalue = tonumber(varvalue)
+    varvalue = tonumber(varvalue)
     if varvalue < 0 then
       varvalue = -varvalue-1
     end
@@ -89,7 +89,7 @@ function get_var(command, verbose)
     return varname, varvalue
   end
 
-  local varname = string.match(command, "%l+")
+  varname = string.match(command, "%l+")
 
   if verbose == true then
     message = "DEBUG get_var( %s ) : varname == %s, varvalue == %s"
@@ -104,7 +104,7 @@ function get_var(command, verbose)
 end
 
 function get_attrvalues(command, verbose)
-  verbose = verbose or false
+  local verbose = verbose or false
   local lside,rside = string.match(command,"(.+)%s+=%s+(.+)%s*")
 
   -- A função "trim" elimina espaços ao princípio 
@@ -114,7 +114,7 @@ function get_attrvalues(command, verbose)
 
   -- Aqui estamos quebrando a string em substrings usando
   -- um ou mais espaços como delimitador.
-  tokens = {}
+  local tokens = {}
   for word in rside:gmatch("%S+") do 
     table.insert(tokens, word) 
   end
@@ -139,14 +139,15 @@ function get_attrvalues(command, verbose)
 end
 
 function get_funcall(command,run, verbose)
+  local verbose = verbose or false
   local funcall = string.match(command,"(%l+)%(.*%)")
+  local return_value = nil
+  local ret = nil
 
   if funcall then
-        run:funcall(command,"function")
-        local ret = run.callstack:find_local(funcall,run.current_function)
+        run:funcall(command,"function", verbose)
+        ret = run.callstack:find_local(funcall,run.current_function)
         return_value = tonumber(ret)
-  else
-      return_value = nil
   end
 
   if verbose == true then
@@ -159,12 +160,9 @@ function get_funcall(command,run, verbose)
 end
 
 function get_value(command,run, verbose)
-    
-  if command == nil then 
-    return 0
-  end
   
-  return_value = nil 
+  local return_value = nil 
+  local number = nil
 
   if verbose == true then
     message = "DEBUG get_value( %s ): return_value == %s;"
@@ -173,7 +171,7 @@ function get_value(command,run, verbose)
   end
 
   if string.find(command,"%l") == nil then
-      local number = string.match(command,"(%-?%d+)")
+      number = string.match(command,"(%-?%d+)")
       return_value = tonumber(number)
   end
   
@@ -203,13 +201,13 @@ function get_value(command,run, verbose)
 end
 
 function get_argvalue(command, run, verbose)
-  return_value = nil
-  local funcall = get_funcall(command,run)
-      if funcall ~= nil then
-          return_value = funcall
-      end
-  if return_value == nil then
-    return_value = get_value(command,run)
+  local verbose = verbose or false
+  local return_value = nil
+  local funcall = get_funcall(command,run, verbose)
+  if funcall ~= nil then
+	return_value = funcall
+  else
+    return_value = get_value(command,run, verbose)
   end
 
   if verbose == true then
@@ -222,7 +220,7 @@ function get_argvalue(command, run, verbose)
 end
 
 function get_result(num1,op,num2, verbose)
-  return_value = nil
+  local return_value = nil
   if num1 == nil then
     num1 = 0
   end
@@ -248,11 +246,11 @@ end
 
 function get_if(command, verbose)
 
-  return_value = string.match(command, "if%s+(.+)%s+([=|>|<|!]+)%s+(.+)%s+")
+  local arg1, op, arg2 = string.match(command, "if%s+(.+)%s+([=|>|<|!]+)%s+(.+)%s+")
   if verbose == true then
-    message = "DEBUG get_if( %s ): return_value == %s;"
-    message = string.format(message, command, return_value)
+    message = "DEBUG get_if( %s ): arg1 == %s; op == %s ; arg2 == %s;"
+    message = string.format(message, command, arg1, op, arg2)
     print(message)
   end
-  return return_value
+  return arg1, op, arg2
 end

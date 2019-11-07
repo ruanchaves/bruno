@@ -1,0 +1,83 @@
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
+ -- RESULTADO ESPERADO:
+12
+-- SAÍDA DO PROGRAMA: 
+12
+
+----- FIM 
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
+ -- RESULTADO ESPERADO:
+10
+-- SAÍDA DO PROGRAMA: 
+10
+
+----- FIM 
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
+ -- RESULTADO ESPERADO:
+5
+3
+-- SAÍDA DO PROGRAMA: 
+5
+3
+
+----- FIM 
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
+ -- RESULTADO ESPERADO:
+1
+10
+ERRO: acesso a índice fora do alcance do vetor.
+-- SAÍDA DO PROGRAMA: 
+1
+10
+1
+Vetor estorou
+
+----- FIM 
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
+ -- RESULTADO ESPERADO:
+5
+50
+20
+-- SAÍDA DO PROGRAMA: 
+50
+50
+5
+
+----- FIM 
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
+ -- RESULTADO ESPERADO:
+20
+-- SAÍDA DO PROGRAMA: 
+20
+
+----- FIM 
+
+-- DATA: Thu Nov  7 12:54:00 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
+ -- RESULTADO ESPERADO:
+30
+-- SAÍDA DO PROGRAMA: 
+10
+20
+30
+
+----- FIM 

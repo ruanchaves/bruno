@@ -3,19 +3,19 @@ require 'utils'
 --podemos usar so as palavras reservadas
 --para encontrar
 outer_tags = {
-    [1]="var%s+",
+    [1]="(%s*var%s+.+%s*)",
     --nao mudar a ordem palavra reservada
-    [2]="function%s+",
-    [3]="begin%s+",
-    [4]="end%s+",
-    [5]="if%s+",
+    [2]="(%s*function%s+%l+%(.*%)%s*)",
+    [3]="(%s*begin%s*)",
+    [4]="(%s*end%s*)",
+    [5]="(%s*if%s+.+then%s*)",
     --nao mudar a ordem if antes de =
-    [6]="=",
-    [7]="print",
+    [6]="(%s*.+%s+=%s+.+)",
+    [7]="(%s*print%(.+%)%s*)",
     -- nao mudar a ordem print antes de funcall
-    [8]="%(",
-    [9]="else",
-    [10]="fi",
+    [8]="(%s*%l+%(.*%)%s*)",
+    [9]="(%s*else%s*)",
+    [10]="(%s*fi%s*)",
 }
 
 labels = {
@@ -32,14 +32,13 @@ labels = {
 }
 
 function tag_match(line)
-    --print("Entrou")
-    --print(line)
     for key, value in ipairs(outer_tags) do
-        if string.find(line, value) ~= nil then
+	local match_value = string.match(line, value)
+        if match_value == line then
+	    -- print("match_value: ", match_value, "line: ",line, "value: ",value)
             return labels[key]
         end
     end
-    --print("Ficou sem catalogar")
 end
 
 function line_tagger(function_list, verbose)
