@@ -4,7 +4,6 @@ function main()
 begin
     varnum = 10
     a[0] = -1 - -2
-    print(a[0])
     a[1] = varnum * a[0]
     faznada()
 end
