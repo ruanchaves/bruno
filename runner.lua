@@ -18,7 +18,6 @@ function Runner:create(function_list, function_list_tags)
     end
     runner_object.function_list_tags = function_list_tags
     runner_object.if_status = nil
-    runner_object.current_function = nil
     runner_object.verbose = false
     return runner_object
  end
@@ -64,12 +63,12 @@ end
 
 
 function Runner:header(command, verbose)
+    
     local function_name = name_from_function_header(command, verbose)
-    self.current_function = function_name
-
     if function_name == 'main' then
         self.callstack:push("main")
     end
+
     if verbose == true then
         message = "DEBUG Runner:header( %s) :: function_name == %s;"
         message = string.format(message, command, function_name)
@@ -115,15 +114,16 @@ function Runner:end_(command, verbose)
     local _end = string.match(command,"end%s*")
     local name, value = nil, nil
 
-    if self.current_function ~= "main" then
-        name = self.current_function
-        value = self.callstack:find_local("ret",name)  
+    local current_function = self.callstack.functions[self.callstack.counter]
+    if current_function ~= "main" then
+        name = current_function
+        value = self.callstack:find("ret",name)  
         self.callstack:pop()
         if value ~= nil then
             self.callstack:assign(name,value) 
         else
-	    self.callstack:assign(name,0)
-	end
+	        self.callstack:assign(name,0)
+	    end
     end
     if verbose == true then
         message = "DEBUG Runner:end_( %s ) :: _end == %s; name == %s; value == %s"
@@ -188,8 +188,6 @@ function Runner:funcall(command, verbose)
     
     local header = function_commands[1]
     local name1,name2,name3 = get_param(header, verbose)
-
-    local parent_function = nil
     
     param1,param2, param3 = get_param(command, verbose)
     self.callstack:push(name)
@@ -227,9 +225,7 @@ function Runner:funcall(command, verbose)
         self.callstack:assign(name1, value1)
     end    
     
-    parent_function = self.current_function
     self:execute(function_commands, function_tags)
-    self.current_function = parent_function
 
     if verbose == true then
         message = "DEBUG Runner:funcall( %s ) :: param1 == %s ; param2 == %s ; param3 == %s"

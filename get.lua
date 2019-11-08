@@ -140,27 +140,6 @@ function get_attrvalues(command, verbose)
     return lside,rside,nil,nil
 end
 
-function get_funcall(command,run, verbose)
-  local verbose = verbose or false
-  local funcall = string.match(command,"(%l+)%(.*%)")
-  local return_value = nil
-  local ret = nil
-
-  if funcall then
-        run:funcall(command,"function", verbose)
-        ret = run.callstack:find_local(funcall,run.current_function)
-        return_value = tonumber(ret)
-  end
-
-  if verbose == true then
-    message = "get_funcall( %s ): funcall == %s ; return_value == %s"
-    message = string.format(message, command, funcall, return_value)
-    print(message)
-  end
-
-  return return_value
-end
-
 function get_value(command,run, verbose)
   
   local return_value = nil 
@@ -196,6 +175,27 @@ function get_value(command,run, verbose)
     message = string.format(message, command, number, return_value, varname, varnumber)
     print(message)
   end
+  return return_value
+end
+
+function get_funcall(command,run, verbose)
+  local verbose = verbose or false
+  local funcall = string.match(command,"(%l+)%(.*%)")
+  local return_value = nil
+  local ret = nil
+
+  if funcall then
+        run:funcall(command,"function", verbose)
+        ret = run.callstack:find(funcall,run.callstack.functions[run.callstack.counter])
+        return_value = tonumber(ret)
+  end
+
+  if verbose == true then
+    message = "get_funcall( %s ): funcall == %s ; return_value == %s"
+    message = string.format(message, command, funcall, return_value)
+    print(message)
+  end
+
   return return_value
 end
 

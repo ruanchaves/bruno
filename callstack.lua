@@ -38,33 +38,10 @@ function CallStack:assign(var, value)
 end
 
 function CallStack:find(var)
-   --local find_local = nil
-   --local find_local = find_local(var,function_name) 
-
-
    local found_value = nil
 
    for tab_idx, tab in ipairs(self.records) do
       for key, value in pairs(tab) do
-         if key == var then
-            found_value = value
-         end
-      end
-   end
-   return found_value
-end
-
-function CallStack:find_local(var,function_name)
-   local idx = nil
-   local found_value = nil
-   for key, value in ipairs(self.functions) do
-      if value == function_name then
-         idx = key
-      end
-   end
-
-   if self.records[idx] ~= nil then 
-      for key, value in pairs(self.records[idx]) do
          if key == var then
             found_value = value
          end
