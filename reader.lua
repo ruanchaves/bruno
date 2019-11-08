@@ -1,13 +1,25 @@
--------------------------------------
--- Identifica e armazena em tabelas o código das funções de um arquivo.
+------------
+-- Lê um arquivo bpl em memória.
+-- @module reader
+-- @author Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues
+-- @license MIT
+
+
+--- Identifica e armazena em tabelas o código das funções de um arquivo.
 -- @param file O nome do arquivo.
--- @param verbose Caso este parâmetro seja verdadeiro (true), as tabelas serão impressas na tela após serem lidas.
--------------------------------------
+-- @param verbose Imprime mensagens do debugger.
 function func_reader(file, verbose)
+    local function_block
+    local function_list
+    local function_name_to_index
+
     verbose = verbose or false
-    function_block = {} -- tabela auxiliar temporária.
-    function_list = {} -- lista de funções.
-    function_name_to_index = {} -- dicionário de nomes de funções : índice da função na tabela function_block.
+    --- tabela auxiliar temporária.
+    function_block = {} 
+    --- lista de funções.
+    function_list = {}
+    --- dicionário com nomes de funções como chave e índice da função na tabela function_block como valor.
+    function_name_to_index = {}
     f_list_counter = 1
     f_block_counter = 1
 

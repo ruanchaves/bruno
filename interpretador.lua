@@ -21,10 +21,10 @@ verbose = false
 --- Pega o nome do arquivo passado como parâmetro (se houver).
 filename = nil
 
---- Contém uma lista de listas de comandos de funções.
+--- Lista de listas de comandos de funções.
 function_list = nil 
 
---- Contém um dicionário com nome de função como chave e índice da função em function_list como valor.
+--- Dicionário com nome de função como chave e índice da função em function_list como valor.
 function_name_to_index = nil
 
 --- Lista de listas que para cada comando em function_list, na mesma posição, apresenta a tag correspondente.

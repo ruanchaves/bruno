@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CallStack.html">CallStack</a></li>
+  <li><a href="../modules/get.html">get</a></li>
+  <li><a href="../modules/interpretador.html">interpretador</a></li>
+  <li><a href="../modules/reader.html">reader</a></li>
+  <li><strong>Runner</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Runner</code></h1>
+<p>Classe que contém funções para a interpretação de comandos.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#create">create (function_list, function_list_tags)</a></td>
+	<td class="summary">Cria um objeto Runner.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#find_function_index">find_function_index (name)</a></td>
+	<td class="summary">Encontra o índice de uma função em function_index a partir do seu nome.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#execute">execute (cmds, cmd_tags)</a></td>
+	<td class="summary">Executa uma lista de comandos associada a uma lista de tags.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#header">header (command)</a></td>
+	<td class="summary">Lê o header de uma função.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vardef">vardef (command)</a></td>
+	<td class="summary">Lê uma definição de variável ou de array.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#runner_object.function_index">runner_object.function_index</a></td>
+	<td class="summary">Lista de nomes de funções, na mesma ordem que aparecem em function_list.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#runner_object.function_list">runner_object.function_list</a></td>
+	<td class="summary">Lista de listas de comandos de funções.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#runner_object.callstack">runner_object.callstack</a></td>
+	<td class="summary">Objeto da classe CallStack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#runner_object.if_status">runner_object.if_status</a></td>
+	<td class="summary">Variável booleana de controle para if / else.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#runner_object.verbose">runner_object.verbose</a></td>
+	<td class="summary">Parâmetro booleano que decide se o debugger do Runner será executado.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#array_initial_value">array_initial_value</a></td>
+	<td class="summary">Valor de inicialização das posições de um array declarado.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#variable_initial_value">variable_initial_value</a></td>
+	<td class="summary">Valor de inicialização das posições de uma variável declarada.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "create"></a>
+    <strong>create (function_list, function_list_tags)</strong>
+    </dt>
+    <dd>
+    Cria um objeto Runner.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">function_list</span>
+         Lista de listas de comandos de funções.
+        </li>
+        <li><span class="parameter">function_list_tags</span>
+         Lista de listas que para cada comando em function_list, na mesma posição, apresenta a tag correspondente.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "find_function_index"></a>
+    <strong>find_function_index (name)</strong>
+    </dt>
+    <dd>
+    Encontra o índice de uma função em function_index a partir do seu nome.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+         Nome da função.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "execute"></a>
+    <strong>execute (cmds, cmd_tags)</strong>
+    </dt>
+    <dd>
+    Executa uma lista de comandos associada a uma lista de tags.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">cmds</span>
+         Comandos.
+        </li>
+        <li><span class="parameter">cmd_tags</span>
+         Lista que para cada comando em cmds, na mesma posição, apresenta a tag correspondente.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "header"></a>
+    <strong>header (command)</strong>
+    </dt>
+    <dd>
+    Lê o header de uma função.  Caso seja "main", inicializa a callstack. Caso contrário, ele é ignorado.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Header de função.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vardef"></a>
+    <strong>vardef (command)</strong>
+    </dt>
+    <dd>
+    Lê uma definição de variável ou de array.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Definição de variável ou array.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "runner_object.function_index"></a>
+    <strong>runner_object.function_index</strong>
+    </dt>
+    <dd>
+    Lista de nomes de funções, na mesma ordem que aparecem em function_list.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "runner_object.function_list"></a>
+    <strong>runner_object.function_list</strong>
+    </dt>
+    <dd>
+    Lista de listas de comandos de funções.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "runner_object.callstack"></a>
+    <strong>runner_object.callstack</strong>
+    </dt>
+    <dd>
+    Objeto da classe CallStack.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "runner_object.if_status"></a>
+    <strong>runner_object.if_status</strong>
+    </dt>
+    <dd>
+    Variável booleana de controle para if / else.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "runner_object.verbose"></a>
+    <strong>runner_object.verbose</strong>
+    </dt>
+    <dd>
+    Parâmetro booleano que decide se o debugger do Runner será executado.  Caso "true", mensagens de debug serão impressas com a saída do programa.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "array_initial_value"></a>
+    <strong>array_initial_value</strong>
+    </dt>
+    <dd>
+    Valor de inicialização das posições de um array declarado.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "variable_initial_value"></a>
+    <strong>variable_initial_value</strong>
+    </dt>
+    <dd>
+    Valor de inicialização das posições de uma variável declarada.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-11-08 08:51:16 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

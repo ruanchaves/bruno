@@ -1,3 +1,9 @@
+------------
+-- Classe que contém funções para a interpretação de comandos.
+-- @module Runner
+-- @author Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues
+-- @license MIT
+
 require 'utils'
 require 'callstack'
 require 'get'
@@ -5,11 +11,17 @@ require 'get'
 Runner = {}
 Runner.__index = Runner
 
+--- Cria um objeto Runner.
+-- @param function_list Lista de listas de comandos de funções.
+-- @param function_list_tags Lista de listas que para cada comando em function_list, na mesma posição, apresenta a tag correspondente.
 function Runner:create(function_list, function_list_tags)
     runner_object = {}
     setmetatable(runner_object, Runner)
+    --- Lista de listas de comandos de funções.
     runner_object.function_list = function_list
+    --- Lista de nomes de funções, na mesma ordem que aparecem em function_list.
     runner_object.function_index = {}
+    --- Objeto da classe CallStack.
     runner_object.callstack = CallStack:create()
     for i, v in ipairs(function_list) do
         header = v[1]
@@ -17,11 +29,15 @@ function Runner:create(function_list, function_list_tags)
         runner_object.function_index[key] = i
     end
     runner_object.function_list_tags = function_list_tags
+    --- Variável booleana de controle para if / else.
     runner_object.if_status = nil
+    --- Parâmetro booleano que decide se o debugger do Runner será executado. Caso "true", mensagens de debug serão impressas com a saída do programa.
     runner_object.verbose = false
     return runner_object
  end
 
+--- Encontra o índice de uma função em function_index a partir do seu nome.
+-- @param name Nome da função. 
 function Runner:find_function_index(name)
     for key, value in pairs(self.function_index) do
         if key == name then
@@ -30,6 +46,9 @@ function Runner:find_function_index(name)
     end
 end
 
+--- Executa uma lista de comandos associada a uma lista de tags.
+-- @param cmds Comandos.
+-- @param cmd_tags Lista que para cada comando em cmds, na mesma posição, apresenta a tag correspondente.
 function Runner:execute(cmds, cmd_tags)
     for key, value in ipairs(cmds) do
         local command = value
@@ -62,6 +81,9 @@ function Runner:execute(cmds, cmd_tags)
 end
 
 
+--- Lê o header de uma função. Caso seja "main", inicializa a callstack. Caso contrário, ele é ignorado.
+-- @param command Header de função.
+-- @verbose Imprime mensagens do debugger.
 function Runner:header(command, verbose)
     
     local function_name = name_from_function_header(command, verbose)
@@ -76,22 +98,28 @@ function Runner:header(command, verbose)
     end
 end
 
-
+--- Lê uma definição de variável ou de array.
+-- @param command Definição de variável ou array.
+-- @verbose Imprime mensagens do debugger.
 function Runner:vardef(command, verbose)
     local varname = get_varname(command, verbose)
     local varsize = get_varsize(command, verbose)
+    local array_initial_value
+    local variable_initial_value
+
+    --- Valor de inicialização das posições de um array declarado.
+    array_initial_value = 0
+
+    --- Valor de inicialização das posições de uma variável declarada.
+    variable_initial_value = 0
 
     if varsize ~= nil then
-        if varsize == 0 then
-            print("ERRO: acesso a chave com valor menor que 1.")
-            os.exit()
-        end
         self.callstack:assign(varname.."_size_", varsize)
         for i = 0, varsize-1 do
-            self.callstack:assign(varname.."["..tostring(i).."]", varsize)
+            self.callstack:assign(varname.."["..tostring(i).."]", array_initial_value)
         end
     else 
-        self.callstack:assign(varname, 0)
+        self.callstack:assign(varname, variable_initial_value)
     end
     if verbose == true then
         message = "DEBUG Runner:vardef( %s ) :: varname == %s ; varsize == %s ;"
