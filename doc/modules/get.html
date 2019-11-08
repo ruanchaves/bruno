@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CallStack.html">CallStack</a></li>
+  <li><strong>get</strong></li>
+  <li><a href="../modules/interpretador.html">interpretador</a></li>
+  <li><a href="../modules/reader.html">reader</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>get</code></h1>
+<p>Funções utilitárias para o Runner.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#get_param">get_param (command, verbose)</a></td>
+	<td class="summary">Extrai parâmetros de uma função de um comando usando regex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_varname">get_varname (command, verbose)</a></td>
+	<td class="summary">Extrai o nome de uma declaração de variável de um comando usando regex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_varsize">get_varsize (command, verbose)</a></td>
+	<td class="summary">Extrai o tamanho de um array de um comando usando regex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_var">get_var (command, verbose)</a></td>
+	<td class="summary">Extrai uma chamada a uma posição de array de um comando usando regex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_attrvalues">get_attrvalues (command, verbose)</a></td>
+	<td class="summary">Extrai os operadores de uma operação aritmética de um comando usando regex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#trim">trim (s)</a></td>
+	<td class="summary">Eliminação de espaços ao princípio e ao fim da string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_if">get_if (command, verbose)</a></td>
+	<td class="summary">Extrai o teste de um comando if usando regex.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_value">get_value (command, run, verbose)</a></td>
+	<td class="summary">Retorna o valor correspondente a uma variável ou posição de array.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_funcall">get_funcall (command, run, verbose)</a></td>
+	<td class="summary">Executa e retorna o valor de uma chamada de função.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_argvalue">get_argvalue (command, run, verbose)</a></td>
+	<td class="summary">Identifica o tipo de um argumento, e então executa e retorna o valor de um argumento.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_result">get_result (num1, op, verbose)</a></td>
+	<td class="summary">Executa uma operação aritmética entre dois valores.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#array_size">array_size</a></td>
+	<td class="summary">Tratamento de acesso a índices negativos de array.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "get_param"></a>
+    <strong>get_param (command, verbose)</strong>
+    </dt>
+    <dd>
+    Extrai parâmetros de uma função de um comando usando regex.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando da função.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_varname"></a>
+    <strong>get_varname (command, verbose)</strong>
+    </dt>
+    <dd>
+    Extrai o nome de uma declaração de variável de um comando usando regex.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando da declaração de variável.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_varsize"></a>
+    <strong>get_varsize (command, verbose)</strong>
+    </dt>
+    <dd>
+    Extrai o tamanho de um array de um comando usando regex.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando da declaração do array.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_var"></a>
+    <strong>get_var (command, verbose)</strong>
+    </dt>
+    <dd>
+    Extrai uma chamada a uma posição de array de um comando usando regex.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando com chamada a uma posição de array.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_attrvalues"></a>
+    <strong>get_attrvalues (command, verbose)</strong>
+    </dt>
+    <dd>
+    Extrai os operadores de uma operação aritmética de um comando usando regex.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando com operação aritmética.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "trim"></a>
+    <strong>trim (s)</strong>
+    </dt>
+    <dd>
+    Eliminação de espaços ao princípio e ao fim da string.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+         String.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_if"></a>
+    <strong>get_if (command, verbose)</strong>
+    </dt>
+    <dd>
+    Extrai o teste de um comando if usando regex.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando if.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_value"></a>
+    <strong>get_value (command, run, verbose)</strong>
+    </dt>
+    <dd>
+    Retorna o valor correspondente a uma variável ou posição de array.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando contendo variável.
+        </li>
+        <li><span class="parameter">run</span>
+         um objeto da classe Runner.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Valor da variável ou posição de array.
+    </ol>
+
+    <h3>Raises:</h3>
+    Retorna um erro para acesso a posição fora do alcance de um array.
+
+
+
+</dd>
+    <dt>
+    <a name = "get_funcall"></a>
+    <strong>get_funcall (command, run, verbose)</strong>
+    </dt>
+    <dd>
+    Executa e retorna o valor de uma chamada de função.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Chamada de função.
+        </li>
+        <li><span class="parameter">run</span>
+         um objeto da classe Runner.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_argvalue"></a>
+    <strong>get_argvalue (command, run, verbose)</strong>
+    </dt>
+    <dd>
+    Identifica o tipo de um argumento, e então executa e retorna o valor de um argumento.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">command</span>
+         Comando com argumento.
+        </li>
+        <li><span class="parameter">run</span>
+         um objeto da classe Runner.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_result"></a>
+    <strong>get_result (num1, op, verbose)</strong>
+    </dt>
+    <dd>
+    Executa uma operação aritmética entre dois valores.
+ Variáveis e funções precisam ser resolvidas em valores antes da chamada desta função.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">num1</span>
+         Primeiro valor.
+        </li>
+        <li><span class="parameter">op</span>
+         Operador. Operadores permitidos: adição ( + ), subtração ( - ), multiplicação ( * ) e divisão ( / ).
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime as mensagens do debugger.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "array_size"></a>
+    <strong>array_size</strong>
+    </dt>
+    <dd>
+    Tratamento de acesso a índices negativos de array.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-11-08 07:38:47 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
