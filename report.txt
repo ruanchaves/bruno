@@ -1,5 +1,5 @@
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
  -- RESULTADO ESPERADO:
@@ -9,7 +9,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
  -- RESULTADO ESPERADO:
@@ -19,7 +19,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
  -- RESULTADO ESPERADO:
@@ -31,7 +31,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo4.bpl 
  -- RESULTADO ESPERADO:
@@ -41,7 +41,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
  -- RESULTADO ESPERADO:
@@ -55,7 +55,7 @@ ERRO: acesso a índice fora do alcance do vetor.
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
  -- RESULTADO ESPERADO:
@@ -69,7 +69,7 @@ ERRO: acesso a índice fora do alcance do vetor.
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
  -- RESULTADO ESPERADO:
@@ -79,7 +79,7 @@ ERRO: acesso a índice fora do alcance do vetor.
 
 ----- FIM 
 
--- DATA: Fri Nov  8 08:51:59 2019
+-- DATA: Fri Nov  8 09:24:23 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
  -- RESULTADO ESPERADO:

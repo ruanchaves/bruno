@@ -128,61 +128,89 @@ function Runner:vardef(command, verbose)
     end
 end
 
+--- Lê um comando "begin", e em seguida, retorna um valor nulo.
+-- @param command Comando "begin".
+-- @verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:begin(command, verbose)
     if verbose == true then
         message = "DEBUG Runner:begin ( %s )"
         message = string.format(message, command)
         print(message)
     end
-    --Fazer nada
 end
 
-
+--- Lê um comando "end". Elimina o escopo da função atual, e adiciona um par chave : valor
+-- ao escopo da função que a chamou. A chave é o nome da função atual, e o valor é o seu
+-- valor de retorno.
+-- @param command Comando "end".
+-- @verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:end_(command, verbose)
     local _end = string.match(command,"end%s*")
-    local name, value = nil, nil
+    local _end_name
+    local _end_value
 
-    local current_function = self.callstack.functions[self.callstack.counter]
-    if current_function ~= "main" then
-        name = current_function
-        value = self.callstack:find("ret",name)  
+    --- Nome da função a ser finalizada.
+    _end_name = nil
+    --- Valor de retorno da função a ser finalizada.
+    _end_value = nil
+
+    _end_name = self.callstack.functions[self.callstack.counter]
+    if _end_name ~= "main" then
+        _end_value = self.callstack:find("ret", _end_name)  
         self.callstack:pop()
-        if value ~= nil then
-            self.callstack:assign(name,value) 
+        if _end_value ~= nil then
+            self.callstack:assign(_end_name,_end_value) 
         else
-	        self.callstack:assign(name,0)
+	        self.callstack:assign(_end_name,0)
 	    end
     end
     if verbose == true then
         message = "DEBUG Runner:end_( %s ) :: _end == %s; name == %s; value == %s"
-        message = string.format(message, command, _end, name, value)
+        message = string.format(message, command, _end, _end_name, _end_value)
         print(message)
     end
 end
 
-
+--- Lê uma atribuição de valor a variável, que pode ter um argumento ou uma operação aritmética entre dois argumentos.
+-- @param command Comando com atribuição.
+-- @param verbose Imprime mensagens do debugger.
+-- @raise Erro de acesso a índice fora do alcance do vetor.
+-- @return nil
 function Runner:attr(command, verbose)
-    local verbose = verbose or false
-    local var,arg1,op,arg2 = get_attrvalues(command, verbose)
-    local num1 = get_argvalue(arg1,self, verbose)
-    local num2 = nil
-    local result = nil
-    local varname = nil
-    local varvalue = nil
+    local verbose 
+    local var 
+    local arg1 
+    local op 
+    local arg2 
+    local num1 
+    local num2 
+    local result 
+    local varname 
+    local varvalue  
+
+    verbose = verbose or false
+    var , arg1 , op , arg2 = get_attrvalues( command , verbose )
+    num1 = get_argvalue( arg1 , self , verbose )
+    num2 = nil
+    result = nil
+    varname = nil
+    varvalue = nil
 
     if op ~= nil then
-        num2 = get_argvalue(arg2,self, verbose)
-        result = get_result(num1,op,num2, verbose)
+        num2 = get_argvalue( arg2 , self , verbose )
+        result = get_result( num1 , op , num2 , verbose )
     else
         result = num1
     end
     
-    varname, varvalue = get_var(var, verbose)
+    varname , varvalue = get_var( var , verbose )
     if varvalue == nil then
-        self.callstack:assign(varname, result)
+        self.callstack:assign(varname,result)
     else
         if varvalue < self.callstack:find(varname.."_size_") then
-            self.callstack:assign(varname.."["..varvalue.."]", result)
+            self.callstack:assign(varname.."["..varvalue.."]",result)
         else
             print("ERRO: acesso a índice fora do alcance do vetor.")
             os.exit()
@@ -192,23 +220,27 @@ function Runner:attr(command, verbose)
     
     if verbose == true then
         message = "DEBUG Runner:attr :: var == %s ; arg1 == %s ; op == %s ; arg2 == %s"
-        message = string.format(message, var, arg1, op, arg2)
+        message = string.format( message , var , arg1 , op , arg2 )
         print(message)
         message = "DEBUG Runner:attr :: num1 == %s ; num2 == %s ; result == %s ;"
-        message = string.format(message, num1, num2, result)
+        message = string.format( message , num1 , num2 , result )
         print(message)
         message = "DEBUG Runner:attr :: varname == %s ; varvalue == %s ;"
-        message = string.format(message, varname, varvalue)
+        message = string.format( message , varname , varvalue )
         print(message)
     end
+    return nil
 end
 
-
+--- Lê e executa uma chamada de função.
+-- @param command Comando com chamada de função.
+-- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:funcall(command, verbose)
+    
     local verbose = verbose or false
     local param1,param2, param3 = nil,nil,nil
     local value1, value2, value3 = nil,nil,nil
-    --deixar invertido pode dar problema
     local name = name_from_function_call(command, verbose)
     local index = self:find_function_index(name)
     local function_commands = self.function_list[index]
@@ -218,6 +250,7 @@ function Runner:funcall(command, verbose)
     local name1,name2,name3 = get_param(header, verbose)
     
     param1,param2, param3 = get_param(command, verbose)
+
     self.callstack:push(name)
 
     if verbose == true then
@@ -234,8 +267,6 @@ function Runner:funcall(command, verbose)
         message = string.format(message, command, parent_function)
         print(message)       
     end
-
-    
 
     if param3 ~= nil then
         value3 = get_value(param3,run, verbose)
@@ -270,6 +301,7 @@ function Runner:funcall(command, verbose)
         print(message)       
     end
 
+    return nil
 end
 
 
