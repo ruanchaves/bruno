@@ -1,16 +1,5 @@
 require 'callstack'
 
-reserved = {
-    [1]="function",
-    [2]="var",
-    [3]="begin",
-    [4]="end",
-    [5]="then",
-    [6]="if",
-    [7]="else",
-    [8]="fi"
-}
-
 function get_param(command, verbose)
     local param1,param2,param3 = nil, nil, nil
 
@@ -49,13 +38,6 @@ end
 function get_varname(command, verbose)
 
     local vardef = string.match(command,"var%s+(%l+)")
-
-    for i, value in ipairs(reserved) do
-        if value == vardef then
-            print("Não pode usar palavra reservada")
-            os.exit()
-        end
-    end
 
     if verbose == true then
       message = string.format("DEBUG get_varname( %s ) : vardef == %s", command, vardef)
@@ -163,7 +145,7 @@ function get_value(command,run, verbose)
     else
 
       if tonumber(varnumber) >= tonumber(run.callstack:find(varname.."_size_")) then
-          print("Vetor estorou")
+          print("ERRO: acesso a índice fora do alcance do vetor.")
           os.exit()
       else
           return_value = run.callstack:find(varname.."["..varnumber.."]", varsize)      

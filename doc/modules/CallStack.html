@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>CallStack</strong></li>
+  <li><a href="../modules/reader.html">reader</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>CallStack</code></h1>
+<p>CallStack necessária para gerenciamento de escopo de funções.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#create">create ()</a></td>
+	<td class="summary">Cria a callstack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#push">push (function_name)</a></td>
+	<td class="summary">Cria o escopo de uma função na callstack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pop">pop ()</a></td>
+	<td class="summary">Remove e retorna um escopo de função do topo da callstack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#peek">peek ()</a></td>
+	<td class="summary">Retorna o escopo de função no topo da callstack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#assign">assign (var, value)</a></td>
+	<td class="summary">Cria um par chave:valor correspondente a uma variável no escopo de função no topo da callstack.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#find">find (var)</a></td>
+	<td class="summary">Percorre toda a callstack, da base ao topo, e retorna o valor da última variável encontrada com o nome indicado.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#callstack_object.records">callstack_object.records</a></td>
+	<td class="summary">Pilha de tabelas de escopo de funções.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#callstack_object.functions">callstack_object.functions</a></td>
+	<td class="summary">Lista que indica o nome de função correspondente a cada índice de tabela em records.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#callstack_object.counter">callstack_object.counter</a></td>
+	<td class="summary">Contador que indica o índice do escopo atual em records.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "create"></a>
+    <strong>create ()</strong>
+    </dt>
+    <dd>
+    Cria a callstack.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Um objeto CallStack.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "push"></a>
+    <strong>push (function_name)</strong>
+    </dt>
+    <dd>
+    Cria o escopo de uma função na callstack.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">function_name</span>
+         Nome da função a ser criada.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "pop"></a>
+    <strong>pop ()</strong>
+    </dt>
+    <dd>
+    Remove e retorna um escopo de função do topo da callstack.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Tabela de escopo de função.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "peek"></a>
+    <strong>peek ()</strong>
+    </dt>
+    <dd>
+    Retorna o escopo de função no topo da callstack.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Tabela de escopo de função.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "assign"></a>
+    <strong>assign (var, value)</strong>
+    </dt>
+    <dd>
+    Cria um par chave:valor correspondente a uma variável no escopo de função no topo da callstack.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">var</span>
+         Chave.
+        </li>
+        <li><span class="parameter">value</span>
+         Valor.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "find"></a>
+    <strong>find (var)</strong>
+    </dt>
+    <dd>
+    Percorre toda a callstack, da base ao topo, e retorna o valor da última variável encontrada com o nome indicado.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">var</span>
+         Nome da variável.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Valor da variável.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "callstack_object.records"></a>
+    <strong>callstack_object.records</strong>
+    </dt>
+    <dd>
+    Pilha de tabelas de escopo de funções.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "callstack_object.functions"></a>
+    <strong>callstack_object.functions</strong>
+    </dt>
+    <dd>
+    Lista que indica o nome de função correspondente a cada índice de tabela em records.
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "callstack_object.counter"></a>
+    <strong>callstack_object.counter</strong>
+    </dt>
+    <dd>
+    Contador que indica o índice do escopo atual em records.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-11-08 06:11:26 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
