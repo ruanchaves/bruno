@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CallStack.html">CallStack</a></li>
+  <li><a href="../modules/get.html">get</a></li>
+  <li><a href="../modules/interpretador.html">interpretador</a></li>
+  <li><a href="../modules/reader.html">reader</a></li>
+  <li><a href="../modules/Runner.html">Runner</a></li>
+  <li><a href="../modules/tagger.html">tagger</a></li>
+  <li><strong>test</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>test</code></h1>
+<p>Executa todos os testes especificados na pasta de testes.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#run_test">run_test (entry, lua, interpretador, buffer, buffer_mode, redirection)</a></td>
+	<td class="summary">Executa um teste.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#record_results">record_results (results_filename, mode)</a></td>
+	<td class="summary">Executa todos os testes, gerenciando chamadas a run_test.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#instructions">instructions</a></td>
+	<td class="summary">Lista de testes.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "run_test"></a>
+    <strong>run_test (entry, lua, interpretador, buffer, buffer_mode, redirection)</strong>
+    </dt>
+    <dd>
+    Executa um teste.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">entry</span>
+         Entrada na lista de testes.
+        </li>
+        <li><span class="parameter">lua</span>
+         Comando que invoca o interpretador de Lua. Por padrão, tem o valor "lua".
+        </li>
+        <li><span class="parameter">interpretador</span>
+         Comando que invoca o interpretador de BPL. Por padrão, tem o valor "interpretador.lua".
+        </li>
+        <li><span class="parameter">buffer</span>
+         Nome do arquivo temporário de buffer. Por padrão, tem o valor "buffer.txt".
+        </li>
+        <li><span class="parameter">buffer_mode</span>
+         Como a shell deve enviar sua saída ao arquivo de buffer. Por padrão, ele é sobrescrito ( ">" ).
+        </li>
+        <li><span class="parameter">redirection</span>
+         Para onde redirecionar mensagens de erro em Lua (stderr). Por padrão, redireciona para stdout ( 2>&1 ).
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        test_report Retorna a data do teste, a saída esperada e o resultado obtido.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "record_results"></a>
+    <strong>record_results (results_filename, mode)</strong>
+    </dt>
+    <dd>
+    Executa todos os testes, gerenciando chamadas a run_test.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">results_filename</span>
+         Arquivo onde os resultados devem ser salvos. Por padrão, "report.txt".
+        </li>
+        <li><span class="parameter">mode</span>
+         Qual modo de escrita deve ser adotado no arquivo de resultados. Por padrão, "a".
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "instructions"></a>
+    <strong>instructions</strong>
+    </dt>
+    <dd>
+    Lista de testes.  Representada como lista de dicionários com as chaves filename e expected_output.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">filename</span>
+         Caminho para o arquivo.
+        </li>
+        <li><span class="parameter">expected_output</span>
+         Lista de valores de saída esperados.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-11-08 19:48:59 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

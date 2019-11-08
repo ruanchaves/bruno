@@ -1,5 +1,5 @@
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
  -- RESULTADO ESPERADO:
@@ -9,7 +9,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
  -- RESULTADO ESPERADO:
@@ -19,7 +19,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
  -- RESULTADO ESPERADO:
@@ -31,7 +31,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo4.bpl 
  -- RESULTADO ESPERADO:
@@ -41,7 +41,7 @@
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
  -- RESULTADO ESPERADO:
@@ -55,13 +55,13 @@ ERRO: acesso a índice fora do alcance do vetor.
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
  -- RESULTADO ESPERADO:
-5
 50
-20
+50
+5
 -- SAÍDA DO PROGRAMA: 
 50
 50
@@ -69,7 +69,7 @@ ERRO: acesso a índice fora do alcance do vetor.
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
  -- RESULTADO ESPERADO:
@@ -79,12 +79,580 @@ ERRO: acesso a índice fora do alcance do vetor.
 
 ----- FIM 
 
--- DATA: Fri Nov  8 09:24:23 2019
+-- DATA: Fri Nov  8 20:20:07 2019
 ----- TESTE: 
  -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
  -- RESULTADO ESPERADO:
 30
 -- SAÍDA DO PROGRAMA: 
 30
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo1.bpl 
+ -- RESULTADO ESPERADO:
+12
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function main()
+		2	begin
+		3	    print(12)
+		4	end
+======
+		1	table: 0x563aef1c0d80
+======
+		main()	 : 	1
+======
+=====
+		1	header
+		2	begin
+		3	print
+		4	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG Runner:begin ( begin )
+DEBUG get_value( 12 ): return_value == nil;
+DEBUG get_value( 12 ): number == 12; return_value == 12; varname == nil; varnumber == nil
+12
+DEBUG Runner:print(     print(12) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo2.bpl 
+ -- RESULTADO ESPERADO:
+10
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function main()
+		2	    var x
+		3	begin
+		4	    x = 10
+		5	    print(x)
+		6	end
+======
+		1	table: 0x55964c2c2e40
+======
+		main()	 : 	1
+======
+=====
+		1	header
+		2	vardef
+		3	begin
+		4	attr
+		5	print
+		6	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG Runner:begin ( begin )
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 10; varname == x; varnumber == nil
+10
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo3.bpl 
+ -- RESULTADO ESPERADO:
+5
+3
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function foo()
+		2	begin
+		3	    print(x)
+		4	    ret = 3
+		5	end
+======
+		1	function main()
+		2	    var x
+		3	begin
+		4	    x = 5
+		5	    x = foo()
+		6	    print(x)
+		7	end
+======
+		1	table: 0x555983053dc0
+		2	table: 0x555983054130
+======
+		main()	 : 	2
+		foo()	 : 	1
+======
+=====
+		1	header
+		2	begin
+		3	print
+		4	attr
+		5	end
+=====
+		1	header
+		2	vardef
+		3	begin
+		4	attr
+		5	attr
+		6	print
+		7	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG Runner:begin ( begin )
+DEBUG Runner:header( function foo()) :: function_name == foo;
+DEBUG Runner:begin ( begin )
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 5; varname == x; varnumber == nil
+5
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == foo; value == 3
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 3; varname == x; varnumber == nil
+3
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo4.bpl 
+ -- RESULTADO ESPERADO:
+6
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function fat(i)
+		2	    var tmp
+		3	begin
+		4	    tmp = i - 1
+		5	    if i == 1 then
+		6	        ret = 1
+		7	    else
+		8	        ret = i * fat(tmp)
+		9	    fi
+		10	end
+======
+		1	function main()
+		2	    var f 
+		3	begin
+		4	    f = fat(3) 
+		5	    print(f)
+		6	end
+======
+		1	table: 0x55a2f4dfedc0
+		2	table: 0x55a2f4dff390
+======
+		main()	 : 	2
+		fat(i)	 : 	1
+======
+=====
+		1	header
+		2	vardef
+		3	begin
+		4	attr
+		5	if
+		6	attr
+		7	else
+		8	attr
+		9	fi
+		10	end
+=====
+		1	header
+		2	vardef
+		3	begin
+		4	attr
+		5	print
+		6	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var f  ) : vardef == f
+DEBUG get_varsize(     var f  ) : varsize == nil
+    var f 
+DEBUG Runner:begin ( begin )
+DEBUG Runner:header( function fat(i)) :: function_name == fat;
+DEBUG get_varname(     var tmp ) : vardef == tmp
+DEBUG get_varsize(     var tmp ) : varsize == nil
+    var tmp
+DEBUG Runner:begin ( begin )
+DEBUG get_if(     if i == 1 then ): arg1 == i; op == == ; arg2 == 1;
+DEBUG get_value( i ): return_value == nil;
+DEBUG get_value( i ): number == nil; return_value == 3; varname == i; varnumber == nil
+DEBUG get_value( 1 ): return_value == nil;
+DEBUG get_value( 1 ): number == 1; return_value == 1; varname == i; varnumber == nil
+DEBUG Runner:if_(     if i == 1 then ) :: value1 == i ; op == == ; value2 == 1
+DEBUG Runner:if_(     if i == 1 then ) :: num1 == 3 ; num2 == 1 ; exp == false
+DEBUG Runner:else_(     else )
+DEBUG Runner:header( function fat(i)) :: function_name == fat;
+DEBUG get_varname(     var tmp ) : vardef == tmp
+DEBUG get_varsize(     var tmp ) : varsize == nil
+    var tmp
+DEBUG Runner:begin ( begin )
+DEBUG get_if(     if i == 1 then ): arg1 == i; op == == ; arg2 == 1;
+DEBUG get_value( i ): return_value == nil;
+DEBUG get_value( i ): number == nil; return_value == 2; varname == i; varnumber == nil
+DEBUG get_value( 1 ): return_value == nil;
+DEBUG get_value( 1 ): number == 1; return_value == 1; varname == i; varnumber == nil
+DEBUG Runner:if_(     if i == 1 then ) :: value1 == i ; op == == ; value2 == 1
+DEBUG Runner:if_(     if i == 1 then ) :: num1 == 2 ; num2 == 1 ; exp == false
+DEBUG Runner:else_(     else )
+DEBUG Runner:header( function fat(i)) :: function_name == fat;
+DEBUG get_varname(     var tmp ) : vardef == tmp
+DEBUG get_varsize(     var tmp ) : varsize == nil
+    var tmp
+DEBUG Runner:begin ( begin )
+DEBUG get_if(     if i == 1 then ): arg1 == i; op == == ; arg2 == 1;
+DEBUG get_value( i ): return_value == nil;
+DEBUG get_value( i ): number == nil; return_value == 1; varname == i; varnumber == nil
+DEBUG get_value( 1 ): return_value == nil;
+DEBUG get_value( 1 ): number == 1; return_value == 1; varname == i; varnumber == nil
+DEBUG Runner:if_(     if i == 1 then ) :: value1 == i ; op == == ; value2 == 1
+DEBUG Runner:if_(     if i == 1 then ) :: num1 == 1 ; num2 == 1 ; exp == true
+DEBUG Runner:else_(     else )
+DEBUG Runner:fi(     fi )
+DEBUG Runner:end_( end ) :: _end == end; name == fat; value == 1
+DEBUG Runner:fi(     fi )
+DEBUG Runner:end_( end ) :: _end == end; name == fat; value == 2
+DEBUG Runner:fi(     fi )
+DEBUG Runner:end_( end ) :: _end == end; name == fat; value == 6
+DEBUG get_value( f ): return_value == nil;
+DEBUG get_value( f ): number == nil; return_value == 6; varname == f; varnumber == nil
+6
+DEBUG Runner:print(     print(f) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo5.bpl 
+ -- RESULTADO ESPERADO:
+1
+10
+ERRO: acesso a índice fora do alcance do vetor.
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function main()
+		2	    var a[2]
+		3	    var varnum
+		4	begin
+		5	    varnum = 10
+		6	    a[0] = -1 - -2
+		7	    a[1] = varnum * a[0]
+		8	    faznada()
+		9	end
+======
+		1	function show()
+		2	begin
+		3	    print(a[-2])
+		4	    print(a[-1])
+		5	    print(a[2])
+		6	end
+======
+		1	function faznada()
+		2	begin
+		3	    show()
+		4	end
+======
+		1	table: 0x557bd1032d60
+		2	table: 0x557bd1033330
+		3	table: 0x557bd1033480
+======
+		show()	 : 	2
+		faznada()	 : 	3
+		main()	 : 	1
+======
+=====
+		1	header
+		2	vardef
+		3	vardef
+		4	begin
+		5	attr
+		6	attr
+		7	attr
+		8	funcall
+		9	end
+=====
+		1	header
+		2	begin
+		3	print
+		4	print
+		5	print
+		6	end
+=====
+		1	header
+		2	begin
+		3	funcall
+		4	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var a[2] ) : vardef == a
+DEBUG get_varsize(     var a[2] ) : varsize == 2
+    var a[2]
+DEBUG get_varname(     var varnum ) : vardef == varnum
+DEBUG get_varsize(     var varnum ) : varsize == nil
+    var varnum
+DEBUG Runner:begin ( begin )
+DEBUG Runner:funcall(     faznada() ) :: param1 == nil ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     faznada() ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     faznada() ) :: name == faznada ; index == 3 ; header == function faznada()
+DEBUG Runner:funcall(     faznada() ) :: parent_function == nil
+DEBUG Runner:header( function faznada()) :: function_name == faznada;
+DEBUG Runner:begin ( begin )
+DEBUG Runner:funcall(     show() ) :: param1 == nil ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     show() ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     show() ) :: name == show ; index == 2 ; header == function show()
+DEBUG Runner:funcall(     show() ) :: parent_function == nil
+DEBUG Runner:header( function show()) :: function_name == show;
+DEBUG Runner:begin ( begin )
+DEBUG get_value( a[-2] ): return_value == nil;
+DEBUG get_value( a[-2] ): number == nil; return_value == 1; varname == a; varnumber == 0
+1
+DEBUG Runner:print(     print(a[-2]) )
+DEBUG get_value( a[-1] ): return_value == nil;
+DEBUG get_value( a[-1] ): number == nil; return_value == 10; varname == a; varnumber == 1
+10
+DEBUG Runner:print(     print(a[-1]) )
+DEBUG get_value( a[2] ): return_value == nil;
+ERRO: acesso a índice fora do alcance do vetor.
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo6.bpl 
+ -- RESULTADO ESPERADO:
+50
+50
+5
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function foo()
+		2	begin
+		3	    print(x)
+		4	    x = 20
+		5	end
+======
+		1	function bar(x)
+		2	begin
+		3	    x = 10 * x
+		4	    foo()
+		5	    print(x)
+		6	end
+======
+		1	function main()
+		2	    var x
+		3	begin
+		4	    x = 5
+		5	    bar(x)
+		6	    print(x)
+		7	end
+======
+		1	table: 0x55fdba62fdc0
+		2	table: 0x55fdba6300b0
+		3	table: 0x55fdba630330
+======
+		main()	 : 	3
+		foo()	 : 	1
+		bar(x)	 : 	2
+======
+=====
+		1	header
+		2	begin
+		3	print
+		4	attr
+		5	end
+=====
+		1	header
+		2	begin
+		3	attr
+		4	funcall
+		5	print
+		6	end
+=====
+		1	header
+		2	vardef
+		3	begin
+		4	attr
+		5	funcall
+		6	print
+		7	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG Runner:begin ( begin )
+DEBUG Runner:funcall(     bar(x) ) :: param1 == x ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     bar(x) ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     bar(x) ) :: name == bar ; index == 2 ; header == function bar(x)
+DEBUG Runner:funcall(     bar(x) ) :: parent_function == nil
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 5; varname == x; varnumber == nil
+DEBUG Runner:header( function bar(x)) :: function_name == bar;
+DEBUG Runner:begin ( begin )
+DEBUG Runner:funcall(     foo() ) :: param1 == nil ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     foo() ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     foo() ) :: name == foo ; index == 1 ; header == function foo()
+DEBUG Runner:funcall(     foo() ) :: parent_function == nil
+DEBUG Runner:header( function foo()) :: function_name == foo;
+DEBUG Runner:begin ( begin )
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 50; varname == x; varnumber == nil
+50
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == foo; value == nil
+DEBUG Runner:funcall(     foo() ) :: param1 == nil ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     foo() ) :: value1 == nil ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     foo() ) :: name == foo ; index == 1 ; header == function foo()
+DEBUG Runner:funcall(     foo() ) :: parent_function == nil
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 50; varname == x; varnumber == nil
+50
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == bar; value == nil
+DEBUG Runner:funcall(     bar(x) ) :: param1 == x ; param2 == nil ; param3 == nil
+DEBUG Runner:funcall(     bar(x) ) :: value1 == 5 ; value2 == nil ; value3 == nil
+DEBUG Runner:funcall(     bar(x) ) :: name == bar ; index == 2 ; header == function bar(x)
+DEBUG Runner:funcall(     bar(x) ) :: parent_function == nil
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 5; varname == x; varnumber == nil
+5
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo7.bpl 
+ -- RESULTADO ESPERADO:
+20
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function zero(a,b,c)
+		2	begin
+		3	end
+======
+		1	function main()
+		2	    var x
+		3	    var y
+		4	begin
+		5	    x = 10 * zero(x,-21,y)
+		6	    if x == 0 then
+		7	        x = 20
+		8	    fi
+		9	    print(x)
+		10	end
+======
+		1	table: 0x55be65994d20
+		2	table: 0x55be65994fc0
+======
+		main()	 : 	2
+		zero(a,b,c)	 : 	1
+======
+=====
+		1	header
+		2	begin
+		3	end
+=====
+		1	header
+		2	vardef
+		3	vardef
+		4	begin
+		5	attr
+		6	if
+		7	attr
+		8	fi
+		9	print
+		10	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var x ) : vardef == x
+DEBUG get_varsize(     var x ) : varsize == nil
+    var x
+DEBUG get_varname(     var y ) : vardef == y
+DEBUG get_varsize(     var y ) : varsize == nil
+    var y
+DEBUG Runner:begin ( begin )
+DEBUG Runner:header( function zero(a,b,c)) :: function_name == zero;
+DEBUG Runner:begin ( begin )
+DEBUG Runner:end_( end ) :: _end == end; name == zero; value == nil
+DEBUG get_if(     if x == 0 then ): arg1 == x; op == == ; arg2 == 0;
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 0; varname == x; varnumber == nil
+DEBUG get_value( 0 ): return_value == nil;
+DEBUG get_value( 0 ): number == 0; return_value == 0; varname == x; varnumber == nil
+DEBUG Runner:if_(     if x == 0 then ) :: value1 == x ; op == == ; value2 == 0
+DEBUG Runner:if_(     if x == 0 then ) :: num1 == 0 ; num2 == 0 ; exp == true
+DEBUG Runner:fi(     fi )
+DEBUG get_value( x ): return_value == nil;
+DEBUG get_value( x ): number == nil; return_value == 20; varname == x; varnumber == nil
+20
+DEBUG Runner:print(     print(x) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
+
+----- FIM 
+
+-- DATA: Fri Nov  8 20:25:19 2019
+----- TESTE: 
+ -- PROGRAMA TESTADO: ./tests/exemplo8.bpl 
+ -- RESULTADO ESPERADO:
+30
+-- SAÍDA DO PROGRAMA: 
+======
+		1	function prints(param)
+		2	begin
+		3	end
+======
+		1	function main()
+		2	    var vars
+		3	    var begins
+		4	    var ifs
+		5	begin 
+		6	    vars = 10
+		7	    begins = 20
+		8	    ifs = vars + begins 
+		9	    print(ifs)
+		10	end
+======
+		1	table: 0x55fa5617cd20
+		2	table: 0x55fa5617cfb0
+======
+		prints(param)	 : 	1
+		main()	 : 	2
+======
+=====
+		1	header
+		2	begin
+		3	end
+=====
+		1	header
+		2	vardef
+		3	vardef
+		4	vardef
+		5	begin
+		6	attr
+		7	attr
+		8	attr
+		9	print
+		10	end
+DEBUG Runner:header( function main()) :: function_name == main;
+DEBUG get_varname(     var vars ) : vardef == vars
+DEBUG get_varsize(     var vars ) : varsize == nil
+    var vars
+DEBUG get_varname(     var begins ) : vardef == begins
+DEBUG get_varsize(     var begins ) : varsize == nil
+    var begins
+DEBUG get_varname(     var ifs ) : vardef == ifs
+DEBUG get_varsize(     var ifs ) : varsize == nil
+    var ifs
+DEBUG Runner:begin ( begin  )
+DEBUG get_value( ifs ): return_value == nil;
+DEBUG get_value( ifs ): number == nil; return_value == 30; varname == ifs; varnumber == nil
+30
+DEBUG Runner:print(     print(ifs) )
+DEBUG Runner:end_( end ) :: _end == end; name == main; value == nil
 
 ----- FIM 

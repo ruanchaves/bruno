@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CallStack.html">CallStack</a></li>
+  <li><a href="../modules/get.html">get</a></li>
+  <li><a href="../modules/interpretador.html">interpretador</a></li>
+  <li><a href="../modules/reader.html">reader</a></li>
+  <li><a href="../modules/Runner.html">Runner</a></li>
+  <li><strong>tagger</strong></li>
+  <li><a href="../modules/test.html">test</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>tagger</code></h1>
+<p>Atribui a tag adequada a cada comando.</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#tag_match">tag_match (line)</a></td>
+	<td class="summary">Retorna a tag correspondente a um comando.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#line_tagger">line_tagger (function_list, verbose)</a></td>
+	<td class="summary">Retorna as tags correspondentes a cada comando de cada função no programa.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#outer_tags">outer_tags</a></td>
+	<td class="summary">Regex equivalente a cada tag na tabela labels.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#labels">labels</a></td>
+	<td class="summary">Tabela de tags.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "tag_match"></a>
+    <strong>tag_match (line)</strong>
+    </dt>
+    <dd>
+    Retorna a tag correspondente a um comando.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">line</span>
+         comando.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Um valor da tabela labels.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "line_tagger"></a>
+    <strong>line_tagger (function_list, verbose)</strong>
+    </dt>
+    <dd>
+    Retorna as tags correspondentes a cada comando de cada função no programa.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">function_list</span>
+         Lista de listas de comandos, separados por função.
+        </li>
+        <li><span class="parameter">verbose</span>
+         Imprime mensagens do debugger.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        function_list_tags Lista de listas de tags de comandos, separadas por função.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "outer_tags"></a>
+    <strong>outer_tags</strong>
+    </dt>
+    <dd>
+    Regex equivalente a cada tag na tabela labels.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">[1]</span>
+        vardef
+        </li>
+        <li><span class="parameter">[2]</span>
+        header
+        </li>
+        <li><span class="parameter">[3]</span>
+        begin
+        </li>
+        <li><span class="parameter">[4]</span>
+        end
+        </li>
+        <li><span class="parameter">[5]</span>
+        if
+        </li>
+        <li><span class="parameter">[6]</span>
+        attr
+        </li>
+        <li><span class="parameter">[7]</span>
+        print
+        </li>
+        <li><span class="parameter">[8]</span>
+        funcall
+        </li>
+        <li><span class="parameter">[9]</span>
+        else
+        </li>
+        <li><span class="parameter">[10]</span>
+        fi
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "labels"></a>
+    <strong>labels</strong>
+    </dt>
+    <dd>
+    Tabela de tags.  Cada tag determina qual chamada de função no objeto Runner será acionada para o comando que a recebe.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">[1]</span>
+        vardef
+        </li>
+        <li><span class="parameter">[2]</span>
+        header
+        </li>
+        <li><span class="parameter">[3]</span>
+        begin
+        </li>
+        <li><span class="parameter">[4]</span>
+        end
+        </li>
+        <li><span class="parameter">[5]</span>
+        if
+        </li>
+        <li><span class="parameter">[6]</span>
+        attr
+        </li>
+        <li><span class="parameter">[7]</span>
+        print
+        </li>
+        <li><span class="parameter">[8]</span>
+        funcall
+        </li>
+        <li><span class="parameter">[9]</span>
+        else
+        </li>
+        <li><span class="parameter">[10]</span>
+        fi
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2019-11-08 19:48:59 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

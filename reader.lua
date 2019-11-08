@@ -39,7 +39,7 @@ function func_reader(file, verbose)
                 print_table(function_block)
             end
         else
-            if not isempty(line) then
+            if line ~= nil and line ~= '' then
                 function_block[f_block_counter] = line
                 f_block_counter = f_block_counter + 1
             end

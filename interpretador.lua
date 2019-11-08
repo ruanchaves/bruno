@@ -15,6 +15,20 @@ local function_list
 local function_name_to_index
 local function_list_tags
 
+--- Função utilitária que encontra o índice de uma função que corresponde a um regex.
+-- @param function_name_to_index Dicionário com nome de função como chave e índice da função em function_list como valor.
+-- @param regex Regex correspondente a chamada de função.
+-- @return main_index índice da chamada de função encontrada na lista function_name_to_index 
+function find_index(function_name_to_index, regex)
+    for key, value in pairs(function_name_to_index) do
+      if string.find(key, regex) then
+          main_index = value
+          break
+      end
+    end
+    return main_index
+end
+
 --- Parâmetro booleano que decide se o debugger do tagger será executado. Caso "true", mensagens de debug serão impressas com a saída do programa.
 verbose = false
 
@@ -47,7 +61,7 @@ file:close()
 
 function_list_tags = line_tagger(function_list, verbose)
 
-main_index = find_function_index(function_name_to_index, 'main')
+main_index = find_index(function_name_to_index, 'main')
 run = Runner:create(function_list, function_list_tags)
 
 --- Parâmetro booleano que decide se o debugger do Runner será executado. Caso "true", mensagens de debug serão impressas com a saída do programa.

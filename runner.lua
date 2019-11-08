@@ -8,6 +8,24 @@ require 'utils'
 require 'callstack'
 require 'get'
 
+--- Função utilitária que extrai o nome de uma função de um header de função.
+-- @param header Header de função.
+-- @return key Nome da função.
+function name_from_function_header(header)
+    local names, args = header:match("(.+)%((.+)")
+    local key = string_split(names)[2]
+    return key
+  end  
+
+--- Função utiliária que extrai o nome de uma função de uma chamada de função.
+-- @param header Chamada de função.
+-- @param key Nome da função.
+function name_from_function_call(header)
+    local names, args = header:match("(.+)%((.+)")
+    local key = string_split(names)[1]
+    return key
+end  
+
 Runner = {}
 Runner.__index = Runner
 
@@ -83,7 +101,7 @@ end
 
 --- Lê o header de uma função. Caso seja "main", inicializa a callstack. Caso contrário, ele é ignorado.
 -- @param command Header de função.
--- @verbose Imprime mensagens do debugger.
+-- @param verbose Imprime mensagens do debugger.
 function Runner:header(command, verbose)
     
     local function_name = name_from_function_header(command, verbose)
@@ -100,7 +118,7 @@ end
 
 --- Lê uma definição de variável ou de array.
 -- @param command Definição de variável ou array.
--- @verbose Imprime mensagens do debugger.
+-- @param verbose Imprime mensagens do debugger.
 function Runner:vardef(command, verbose)
     local varname = get_varname(command, verbose)
     local varsize = get_varsize(command, verbose)
@@ -130,7 +148,7 @@ end
 
 --- Lê um comando "begin", e em seguida, retorna um valor nulo.
 -- @param command Comando "begin".
--- @verbose Imprime mensagens do debugger.
+-- @param verbose Imprime mensagens do debugger.
 -- @return nil
 function Runner:begin(command, verbose)
     if verbose == true then
@@ -144,7 +162,7 @@ end
 -- ao escopo da função que a chamou. A chave é o nome da função atual, e o valor é o seu
 -- valor de retorno.
 -- @param command Comando "end".
--- @verbose Imprime mensagens do debugger.
+-- @param verbose Imprime mensagens do debugger.
 -- @return nil
 function Runner:end_(command, verbose)
     local _end = string.match(command,"end%s*")
@@ -304,7 +322,10 @@ function Runner:funcall(command, verbose)
     return nil
 end
 
-
+--- Executa um teste de um if após resolver os operadores em números. 
+-- @param command Comando com o teste de if.
+-- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:if_(command, verbose)
     local value1, op, value2 = get_if(command, verbose)
     local num1 = get_value(value1,self, verbose)
@@ -334,7 +355,10 @@ function Runner:if_(command, verbose)
     end
 end
 
-
+--- Lê um comando "else" e atualiza o estado da variável interna if_status.
+-- @param command Comando "else".
+-- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:else_(command, verbose)
     self.if_status = not self.if_status
     if verbose == true then
@@ -342,7 +366,10 @@ function Runner:else_(command, verbose)
     end
 end
 
-
+--- Lê um comando "fi" e atualiza o estado da variável interna if_status.
+-- @param command Comando "fi".
+-- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:fi(command, verbose)
     self.if_status = nil
     if verbose == true then
@@ -350,6 +377,10 @@ function Runner:fi(command, verbose)
     end
 end
 
+--- Lê um comando "print", resolve a variável e imprime seu valor na tela.
+-- @param command Comando "print".
+-- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:print(command, verbose)
     arg = string.match(command,"print%((.+)%)")
     num = get_value(arg,self, verbose)

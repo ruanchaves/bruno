@@ -1,40 +1,35 @@
--- A função "trim" elimina espaços ao princípio 
--- e ao fim da string.
-function trim_string(s)
-  return s:match "^%s*(.-)%s*$"
-end
+------------
+-- Funções utilitárias com finalidades diversas que não se encaixam em outros arquivos.
+-- @module test
+-- @author Juliana Resplande Sant'Anna Gomes, Ruan Chaves Rodrigues
+-- @license MIT
 
--- Aqui estamos quebrando a string em substrings usando
--- um ou mais espaços como delimitador.
-function split_tokens(s)
-  tokens = {}
-  for word in rside:gmatch("%S+") do 
-    table.insert(tokens, word) 
-  end
-  return tokens
-end  
 
+--- Clona uma tabela.
+-- @param org Uma tabela.
 function table.clone(org)
     return {table.unpack(org)}
   end
 
-
+--- Imprime uma tabela com ipairs.
+-- @param data Uma tabela.
 function print_table(data)
     for key, value in ipairs(data) do
         print('\t', key, value)
     end
 end
 
+--- Imprime uma tabela com pairs.
+-- @param Uma tabela.
 function print_table_unordered(data)
   for key, value in pairs(data) do
     print('\t', key,' : ', value)
   end
 end
 
-function isempty(s)
-  return s == nil or s == ''
-end
-
+--- Divide uma string em uma lista de tokens separados por espaços.
+-- @param line Uma string.
+-- @return t Uma lista.
 function string_split(line)
   local t = {}
     for token in string.gmatch(line, "[^%s]+") do
@@ -42,45 +37,3 @@ function string_split(line)
     end
   return t
 end
-
-function find_function_index(function_name_to_index, regex)
-  for key, value in pairs(function_name_to_index) do
-    if string.find(key, regex) then
-        main_index = value
-        break
-    end
-  end
-  return main_index
-end
-
-function find_type(value)
-  if string.find(value, '%d+') then
-      return 'number'
-  elseif string.find(value, '%(') then
-      return 'function'
-  elseif string.find(value, '%l+') then
-      return 'name'
-  else
-      return nil
-  end
-end
-
-function find_function_args(expr)
-  local tmp_table = {}
-  for i in string.gmatch(expr, "%w+") do
-    table.insert(tmp_table, i)
-  end
-  return tmp_table
-end
-
-function name_from_function_header(header)
-  local names, args = header:match("(.+)%((.+)")
-  local key = string_split(names)[2]
-  return key
-end  
-
-function name_from_function_call(header)
-  local names, args = header:match("(.+)%((.+)")
-  local key = string_split(names)[1]
-  return key
-end  
