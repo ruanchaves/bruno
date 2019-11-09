@@ -30,7 +30,7 @@ instructions = {
     },
     {
         ["filename"]= "./tests/exemplo6.bpl",
-        ["expected_output"]= {50, 50, 5}
+        ["expected_output"]= {5, 50, 20}
     },
     {
         ["filename"]= "./tests/exemplo7.bpl",

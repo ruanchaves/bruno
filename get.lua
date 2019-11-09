@@ -231,7 +231,7 @@ function get_argvalue(command, run, verbose)
   local return_value = nil
   local funcall = get_funcall(command,run, verbose)
   if funcall ~= nil then
-	return_value = funcall
+	  return_value = funcall
   else
     return_value = get_value(command,run, verbose)
   end

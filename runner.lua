@@ -132,12 +132,12 @@ function Runner:vardef(command, verbose)
     variable_initial_value = 0
 
     if varsize ~= nil then
-        self.callstack:assign(varname.."_size_", varsize)
+        self.callstack:define(varname.."_size_", varsize)
         for i = 0, varsize-1 do
-            self.callstack:assign(varname.."["..tostring(i).."]", array_initial_value)
+            self.callstack:define(varname.."["..tostring(i).."]", array_initial_value)
         end
     else 
-        self.callstack:assign(varname, variable_initial_value)
+        self.callstack:define(varname, variable_initial_value)
     end
     if verbose == true then
         message = "DEBUG Runner:vardef( %s ) :: varname == %s ; varsize == %s ;"
@@ -179,9 +179,9 @@ function Runner:end_(command, verbose)
         _end_value = self.callstack:find("ret", _end_name)  
         self.callstack:pop()
         if _end_value ~= nil then
-            self.callstack:assign(_end_name,_end_value) 
+            self.callstack:define(_end_name,_end_value) 
         else
-	        self.callstack:assign(_end_name,0)
+	        self.callstack:define(_end_name,0)
 	    end
     end
     if verbose == true then
@@ -288,18 +288,18 @@ function Runner:funcall(command, verbose)
 
     if param3 ~= nil then
         value3 = get_value(param3,run, verbose)
-        self.callstack:assign(name3, value3)
+        self.callstack:define_param(name3, value3)
     end
 
     if param2 ~= nil then
         value2 = get_value(param2,run, verbose)
-        self.callstack:assign(name2, value2)
+        self.callstack:define_param(name2, value2)
 
     end
 
     if param1 ~= nil then
         value1 = get_value(param1,run, verbose)
-        self.callstack:assign(name1, value1)
+        self.callstack:define_param(name1, value1)
     end    
     
     self:execute(function_commands, function_tags)
