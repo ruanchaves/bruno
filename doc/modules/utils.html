@@ -33,7 +33,6 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
 </ul>
 
 
@@ -42,19 +41,19 @@
   <li><a href="../modules/CallStack.html">CallStack</a></li>
   <li><a href="../modules/get.html">get</a></li>
   <li><a href="../modules/interpretador.html">interpretador</a></li>
-  <li><strong>reader</strong></li>
+  <li><a href="../modules/reader.html">reader</a></li>
   <li><a href="../modules/Runner.html">Runner</a></li>
   <li><a href="../modules/tagger.html">tagger</a></li>
   <li><a href="../modules/test.html">test</a></li>
-  <li><a href="../modules/utils.html">utils</a></li>
+  <li><strong>utils</strong></li>
 </ul>
 
 </div>
 
 <div id="content">
 
-<h1>Module <code>reader</code></h1>
-<p>Lê um arquivo bpl em memória.</p>
+<h1>Module <code>utils</code></h1>
+<p>Funções utilitárias com finalidades diversas que não se encaixam em outros arquivos.</p>
 <p></p>
     <h3>Info:</h3>
     <ul>
@@ -66,23 +65,20 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#func_reader">func_reader (file, verbose)</a></td>
-	<td class="summary">Identifica e armazena em tabelas o código das funções de um arquivo.</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#function_block">function_block</a></td>
-	<td class="summary">tabela auxiliar temporária.</td>
+	<td class="name" nowrap><a href="#table.clone">table.clone (org)</a></td>
+	<td class="summary">Clona uma tabela.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#function_list">function_list</a></td>
-	<td class="summary">lista de funções.</td>
+	<td class="name" nowrap><a href="#print_table">print_table (data)</a></td>
+	<td class="summary">Imprime uma tabela com ipairs.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#function_name_to_index">function_name_to_index</a></td>
-	<td class="summary">dicionário com nomes de funções como chave e índice da função na tabela function_block como valor.</td>
+	<td class="name" nowrap><a href="#print_table_unordered">print_table_unordered (Uma)</a></td>
+	<td class="summary">Imprime uma tabela com pairs.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#string_split">string_split (line)</a></td>
+	<td class="summary">Divide uma string em uma lista de tokens separados por espaços.</td>
 	</tr>
 </table>
 
@@ -94,74 +90,100 @@
 
     <dl class="function">
     <dt>
-    <a name = "func_reader"></a>
-    <strong>func_reader (file, verbose)</strong>
+    <a name = "table.clone"></a>
+    <strong>table.clone (org)</strong>
     </dt>
     <dd>
-    Identifica e armazena em tabelas o código das funções de um arquivo.
+    Clona uma tabela.
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">file</span>
-         O nome do arquivo.
-        </li>
-        <li><span class="parameter">verbose</span>
-         Imprime mensagens do debugger.
+        <li><span class="parameter">org</span>
+         Uma tabela.
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        As variáveis function_list e function_name_to_index.
+        Uma tabela.
     </ol>
 
 
 
 
 </dd>
-</dl>
-    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
-
-    <dl class="function">
     <dt>
-    <a name = "function_block"></a>
-    <strong>function_block</strong>
+    <a name = "print_table"></a>
+    <strong>print_table (data)</strong>
     </dt>
     <dd>
-    tabela auxiliar temporária.
+    Imprime uma tabela com ipairs.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">data</span>
+         Uma tabela.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "function_list"></a>
-    <strong>function_list</strong>
+    <a name = "print_table_unordered"></a>
+    <strong>print_table_unordered (Uma)</strong>
     </dt>
     <dd>
-    lista de funções.
+    Imprime uma tabela com pairs.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">Uma</span>
+         tabela.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        nil
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "function_name_to_index"></a>
-    <strong>function_name_to_index</strong>
+    <a name = "string_split"></a>
+    <strong>string_split (line)</strong>
     </dt>
     <dd>
-    dicionário com nomes de funções como chave e índice da função na tabela function_block como valor.
+    Divide uma string em uma lista de tokens separados por espaços.
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">line</span>
+         Uma string.
+        </li>
+    </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+        Uma lista.
+    </ol>
 
 
 
