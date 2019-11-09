@@ -40,6 +40,10 @@ instructions = {
         ["filename"]= "./tests/exemplo8.bpl",
         ["expected_output"]= {30}
     },    
+    {
+        ["filename"]= "./tests/exemplo9.bpl",
+        ["expected_output"]= {30}
+    }
 }
 
 --- Executa um teste.
