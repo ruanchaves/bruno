@@ -8,6 +8,7 @@
 --- Identifica e armazena em tabelas o código das funções de um arquivo.
 -- @param file O nome do arquivo.
 -- @param verbose Imprime mensagens do debugger.
+-- @return As variáveis function_list e function_name_to_index.
 function func_reader(file, verbose)
     local function_block
     local function_list

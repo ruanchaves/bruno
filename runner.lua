@@ -10,7 +10,7 @@ require 'get'
 
 --- Função utilitária que extrai o nome de uma função de um header de função.
 -- @param header Header de função.
--- @return key Nome da função.
+-- @return Nome da função.
 function name_from_function_header(header)
     local names, args = header:match("(.+)%((.+)")
     local key = string_split(names)[2]
@@ -20,6 +20,7 @@ function name_from_function_header(header)
 --- Função utiliária que extrai o nome de uma função de uma chamada de função.
 -- @param header Chamada de função.
 -- @param key Nome da função.
+-- @return Nome da função.
 function name_from_function_call(header)
     local names, args = header:match("(.+)%((.+)")
     local key = string_split(names)[1]
@@ -32,6 +33,7 @@ Runner.__index = Runner
 --- Cria um objeto Runner.
 -- @param function_list Lista de listas de comandos de funções.
 -- @param function_list_tags Lista de listas que para cada comando em function_list, na mesma posição, apresenta a tag correspondente.
+-- @return Objeto Runner.
 function Runner:create(function_list, function_list_tags)
     runner_object = {}
     setmetatable(runner_object, Runner)
@@ -56,6 +58,7 @@ function Runner:create(function_list, function_list_tags)
 
 --- Encontra o índice de uma função em function_index a partir do seu nome.
 -- @param name Nome da função. 
+-- @return Índice da função.
 function Runner:find_function_index(name)
     for key, value in pairs(self.function_index) do
         if key == name then
@@ -67,6 +70,7 @@ end
 --- Executa uma lista de comandos associada a uma lista de tags.
 -- @param cmds Comandos.
 -- @param cmd_tags Lista que para cada comando em cmds, na mesma posição, apresenta a tag correspondente.
+-- @return nil
 function Runner:execute(cmds, cmd_tags)
     for key, value in ipairs(cmds) do
         local command = value
@@ -96,12 +100,14 @@ function Runner:execute(cmds, cmd_tags)
             end
         end
     end
+    return nil
 end
 
 
 --- Lê o header de uma função. Caso seja "main", inicializa a callstack. Caso contrário, ele é ignorado.
 -- @param command Header de função.
 -- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:header(command, verbose)
     
     local function_name = name_from_function_header(command, verbose)
@@ -114,11 +120,13 @@ function Runner:header(command, verbose)
         message = string.format(message, command, function_name)
         print(message)
     end
+    return nil
 end
 
 --- Lê uma definição de variável ou de array.
 -- @param command Definição de variável ou array.
 -- @param verbose Imprime mensagens do debugger.
+-- @return nil
 function Runner:vardef(command, verbose)
     local varname = get_varname(command, verbose)
     local varsize = get_varsize(command, verbose)
@@ -144,6 +152,7 @@ function Runner:vardef(command, verbose)
         message = string.format(command, varname, varsize)
         print(message)
     end
+    return nil
 end
 
 --- Lê um comando "begin", e em seguida, retorna um valor nulo.
@@ -156,6 +165,7 @@ function Runner:begin(command, verbose)
         message = string.format(message, command)
         print(message)
     end
+    return nil
 end
 
 --- Lê um comando "end". Elimina o escopo da função atual, e adiciona um par chave : valor
@@ -189,6 +199,7 @@ function Runner:end_(command, verbose)
         message = string.format(message, command, _end, _end_name, _end_value)
         print(message)
     end
+    return nil
 end
 
 --- Lê uma atribuição de valor a variável, que pode ter um argumento ou uma operação aritmética entre dois argumentos.
@@ -353,6 +364,7 @@ function Runner:if_(command, verbose)
         message = string.format(message, command, num1, num2, exp)
         print(message)
     end
+    return nil
 end
 
 --- Lê um comando "else" e atualiza o estado da variável interna if_status.
@@ -364,6 +376,7 @@ function Runner:else_(command, verbose)
     if verbose == true then
         print(string.format("DEBUG Runner:else_( %s )", command))
     end
+    return nil
 end
 
 --- Lê um comando "fi" e atualiza o estado da variável interna if_status.
@@ -375,6 +388,7 @@ function Runner:fi(command, verbose)
     if verbose == true then
         print(string.format("DEBUG Runner:fi( %s )", command))
     end
+    return nil
 end
 
 --- Lê um comando "print", resolve a variável e imprime seu valor na tela.
@@ -388,4 +402,5 @@ function Runner:print(command, verbose)
     if verbose == true then
         print(string.format("DEBUG Runner:print( %s )", command))
     end
+    return nil
 end

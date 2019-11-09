@@ -9,6 +9,7 @@ require 'callstack'
 --- Extrai parâmetros de uma função de um comando usando regex.
 -- @param command Comando da função.
 -- @param verbose Imprime mensagens do debugger.
+-- @return Uma quantidade variável de parâmetros ( de 1 a 3 parâmetros ).
 function get_param(command, verbose)
     local param1,param2,param3 = nil, nil, nil
 
@@ -43,6 +44,7 @@ end
 --- Extrai o nome de uma declaração de variável de um comando usando regex.
 -- @param command Comando da declaração de variável.
 -- @param verbose Imprime mensagens do debugger.
+-- @return Declaração de variável.
 function get_varname(command, verbose)
 
     local vardef = string.match(command,"var%s+(%l+)")
@@ -58,6 +60,7 @@ end
 --- Extrai o tamanho de um array de um comando usando regex.
 -- @param command Comando da declaração do array.
 -- @param verbose Imprime mensagens do debugger.
+-- @return Tamanho de um array.
 function get_varsize(command, verbose)
     local varsize = string.match(command,"(%d+)")
 
@@ -73,6 +76,7 @@ end
 --- Extrai uma chamada a uma posição de array de um comando usando regex.
 -- @param command Comando com chamada a uma posição de array.
 -- @param verbose Imprime mensagens do debugger.
+-- @return varname , varvalue : Nome de variável e posição de array ( caso não se trate de um array, retorna nil no campo de posição).
 function get_var(command, verbose)
   local varname, varvalue = string.match(command, "(%l+)%[(%-?%d+)%]")
   local array_size = nil 
@@ -102,9 +106,10 @@ function get_var(command, verbose)
 
 end
 
---- Extrai os operadores de uma operação aritmética de um comando usando regex.
+--- Extrai os argumentos e operadores de um comando de atribuição usando regex.
 -- @param command Comando com operação aritmética.
 -- @param verbose Imprime mensagens do debugger.
+-- @return Argumentos e operadores de uma atribuição.
 function get_attrvalues(command, verbose)
   local verbose = verbose or false
   local lside,rside = string.match(command,"(.+)%s+=%s+(.+)%s*")
@@ -142,6 +147,7 @@ end
 --- Extrai o teste de um comando if usando regex.
 -- @param command Comando if.
 -- @param verbose Imprime mensagens do debugger.
+-- @return Argumentos e operador de um teste de um comando if.
 function get_if(command, verbose)
 
   local arg1, op, arg2 = string.match(command, "if%s+(.+)%s+([=|>|<|!]+)%s+(.+)%s+")
@@ -201,6 +207,7 @@ end
 -- @param command Chamada de função.
 -- @param run um objeto da classe Runner.
 -- @param verbose Imprime mensagens do debugger. 
+-- @return Valor de uma chamada de função.
 function get_funcall(command,run, verbose)
   local verbose = verbose or false
   local funcall = string.match(command,"(%l+)%(.*%)")
@@ -225,7 +232,8 @@ end
 --- Identifica o tipo de um argumento, e então executa e retorna o valor de um argumento.
 -- @param command Comando com argumento.
 -- @param run um objeto da classe Runner.
--- @param verbose Imprime mensagens do debugger. 
+-- @param verbose Imprime mensagens do debugger.
+-- @return Valor de um argumento. 
 function get_argvalue(command, run, verbose)
   local verbose = verbose or false
   local return_value = nil
@@ -250,6 +258,7 @@ end
 -- @param num1 Primeiro valor.
 -- @param op Operador. Operadores permitidos: adição ( + ), subtração ( - ), multiplicação ( * ) e divisão ( / ).
 -- @param verbose Imprime as mensagens do debugger.
+-- @return Resultado numérico de uma operação aritmética entre dois valores.
 function get_result(num1,op,num2, verbose)
   local return_value = nil
   if num1 == nil then
